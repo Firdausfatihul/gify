@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -76,29 +77,24 @@ public class Login extends AppCompatActivity {
                 progressBar.setTitle("Sign In");
                 progressBar.setMessage("Harap Tunggu...");
                 progressBar.setCanceledOnTouchOutside(false);
-                progressBar.setCancelable(false);
                 progressBar.show();
-                if (email.isEmpty() || password.isEmpty()){
-                    Toast.makeText(Login.this, "Isi terlebih dulu yang kosong", Toast.LENGTH_SHORT).show();
-                    progressBar.dismiss();
-                }else {
-                    mAuth.signInWithEmailAndPassword(email, password)
-                            .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                                @Override
-                                public void onComplete(@NonNull Task<AuthResult> task) {
-                                    if (task.isSuccessful()) {
-                                        Toast.makeText(Login.this, "Selamat datang!", Toast.LENGTH_SHORT).show();
-                                        SendUserToMainActivity();
-                                        progressBar.dismiss();
-                                    }
-                                    else {
-                                        String message = task.getException().toString();
-                                        Toast.makeText(Login.this, "Error: " + message, Toast.LENGTH_SHORT).show();
-                                        progressBar.dismiss();
-                                    }
+
+                mAuth.signInWithEmailAndPassword(email, password)
+                        .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                if (task.isSuccessful()) {
+                                    Toast.makeText(Login.this, "Selamat datang!", Toast.LENGTH_SHORT).show();
+                                    SendUserToMainActivity();
+                                    progressBar.dismiss();
                                 }
-                            });
-                }
+                                else {
+                                    String message = task.getException().toString();
+                                    Toast.makeText(Login.this, "Error: " + message, Toast.LENGTH_SHORT).show();
+                                    progressBar.dismiss();
+                                }
+                            }
+                        });
             }
         });
     }
@@ -110,5 +106,6 @@ public class Login extends AppCompatActivity {
         editor.putString("email", email);
         editor.apply();
         startActivity(mainIntent);
+        finish();
     }
 }

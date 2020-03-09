@@ -37,6 +37,7 @@
             android:contentDescription="@string/todo" />
 
         <EditText
+            android:textColor="#000"
             android:id="@+id/emailLogin"
             android:hint="Email"
             android:textColorHint="#818181"
@@ -72,6 +73,7 @@
         <EditText
             android:id="@+id/passwordLogin"
             android:hint="Password"
+            android:textColor="#000"
             android:autofillHints="Password"
             android:paddingStart="10dp"
             android:singleLine="true"
