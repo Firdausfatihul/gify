@@ -34,6 +34,8 @@
 
         <EditText
             android:id="@+id/namaRegister"
+            android:singleLine="true"
+            android:textColor="#000"
             android:hint="Nama kamu"
             android:textColorHint="#818181"
             android:autofillHints="Email"
@@ -66,6 +68,8 @@
 
         <EditText
             android:id="@+id/emailLogin"
+            android:singleLine="true"
+            android:textColor="#000"
             android:hint="Email"
             android:textColorHint="#818181"
             android:autofillHints="Email"
@@ -98,6 +102,7 @@
 
         <TextView
             android:id="@+id/tanggalLahirRegister"
+            android:singleLine="true"
             android:text="Tanggal lahir"
             android:textSize="17dp"
             android:layout_gravity="center"
@@ -133,6 +138,8 @@
 
         <EditText
             android:id="@+id/noHPRegister"
+            android:singleLine="true"
+            android:textColor="#000"
             android:hint="No. HP"
             android:textColorHint="#818181"
             android:autofillHints="Email"
@@ -165,6 +172,9 @@
 
         <EditText
             android:id="@+id/passwordRegister"
+            android:inputType="textPassword"
+            android:singleLine="true"
+            android:textColor="#000"
             android:hint="Password"
             android:textColorHint="#818181"
             android:autofillHints="Email"
