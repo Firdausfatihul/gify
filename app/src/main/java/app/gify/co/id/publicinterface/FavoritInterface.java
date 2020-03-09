@@ -1,4 +1,4 @@
 package app.gify.co.id.publicinterface;
 
-public interface KadoInterface {
+public interface FavoritInterface {
 }
