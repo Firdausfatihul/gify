@@ -1,8 +1,8 @@
 package app.gify.co.id.modal;
 
 public class MadolPembelian {
-    int tanggal, idpesanan, resi, status;
-    String jenis, penerima;
+    private int tanggal, idpesanan, resi, status;
+    private String jenis, penerima;
 
     public MadolPembelian(int tanggal, int idpesanan, int resi, int status, String jenis, String penerima) {
         this.tanggal = tanggal;
