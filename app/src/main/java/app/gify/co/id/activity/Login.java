@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.os.PersistableBundle;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -73,17 +74,32 @@ public class Login extends AppCompatActivity {
                 Masuk.setVisibility(View.GONE);
                 progressBar = new ProgressDialog(Login.this);
                 progressBar.setTitle("Sign In");
+                progressBar.setMessage("Harap Tunggu...");
+                progressBar.setCanceledOnTouchOutside(false);
+                progressBar.show();
 
                 mAuth.signInWithEmailAndPassword(email, password)
                         .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
-
+                                    Toast.makeText(Login.this, "Selamat datang!", Toast.LENGTH_SHORT).show();
+                                    SendUserToMainActivity();
+                                    progressBar.dismiss();
+                                }
+                                else {
+                                    String message = task.getException().toString();
+                                    Toast.makeText(Login.this, "Error: " + message, Toast.LENGTH_SHORT).show();
+                                    progressBar.dismiss();
                                 }
                             }
                         });
             }
         });
+    }
+
+    private void SendUserToMainActivity() {
+        Intent mainIntent = new Intent(getApplication(), MainActivity.class);
+        startActivity(mainIntent);
     }
 }
