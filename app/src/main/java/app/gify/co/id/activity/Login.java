@@ -79,23 +79,27 @@ public class Login extends AppCompatActivity {
                 progressBar.setMessage("Harap Tunggu...");
                 progressBar.setCanceledOnTouchOutside(false);
                 progressBar.show();
-
-                mAuth.signInWithEmailAndPassword(email, password)
-                        .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                if (task.isSuccessful()) {
-                                    Toast.makeText(Login.this, "Selamat datang!", Toast.LENGTH_SHORT).show();
-                                    SendUserToMainActivity();
-                                    progressBar.dismiss();
+                //wajib di tambahkan untuk menghindari null
+                if (email.isEmpty() || password.isEmpty()){
+                    Toast.makeText(Login.this, "Isi yang kosong terlebih dahulu", Toast.LENGTH_SHORT).show();
+                }else {
+                    mAuth.signInWithEmailAndPassword(email, password)
+                            .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                                @Override
+                                public void onComplete(@NonNull Task<AuthResult> task) {
+                                    if (task.isSuccessful()) {
+                                        Toast.makeText(Login.this, "Selamat datang!", Toast.LENGTH_SHORT).show();
+                                        SendUserToMainActivity();
+                                        progressBar.dismiss();
+                                    }
+                                    else {
+                                        String message = task.getException().toString();
+                                        Toast.makeText(Login.this, "Error: " + message, Toast.LENGTH_SHORT).show();
+                                        progressBar.dismiss();
+                                    }
                                 }
-                                else {
-                                    String message = task.getException().toString();
-                                    Toast.makeText(Login.this, "Error: " + message, Toast.LENGTH_SHORT).show();
-                                    progressBar.dismiss();
-                                }
-                            }
-                        });
+                            });
+                }
             }
         });
     }

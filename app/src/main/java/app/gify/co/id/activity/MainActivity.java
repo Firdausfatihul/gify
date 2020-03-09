@@ -1,6 +1,10 @@
 package app.gify.co.id.activity;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.widget.Toast;
 import android.view.Menu;
 
 import androidx.annotation.Nullable;
@@ -18,12 +22,16 @@ import app.gify.co.id.R;
 
 public class MainActivity extends AppCompatActivity {
 
+    SharedPreferences sharedPreferences;
+
     private AppBarConfiguration mAppBarConfiguration;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        Toast.makeText(this, "", Toast.LENGTH_SHORT).show();
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
