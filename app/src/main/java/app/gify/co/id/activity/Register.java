@@ -112,6 +112,7 @@ public class Register extends AppCompatActivity {
                                 RootRef.child("Users").child(currentUserID).child("nama").setValue(nama);
                                 RootRef.child("Users").child(currentUserID).child("email").setValue(email);
                                 RootRef.child("Users").child(currentUserID).child("password").setValue(password);
+                                RootRef.child("Users").child(currentUserID).child("tanggal").setValue(selectedDate.toString());
                                 RootRef.child("Users").child(currentUserID).child("noHp").setValue(noHp);
 
                                 SendUserToMainActivity();
@@ -142,11 +143,11 @@ public class Register extends AppCompatActivity {
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-                selectedDate = new StringBuilder().append(month + 1)
-                        .append("-").append(day).append("-").append(year)
+                selectedDate = new StringBuilder().append(day)
+                        .append("-").append(month + 1).append("-").append(year)
                         .append("");
                 SimpleDateFormat format = new SimpleDateFormat("EEEE, dd - MMMM - yyyy");
-                SimpleDateFormat currentDateformat = new SimpleDateFormat("MM-dd-yyyy");
+                SimpleDateFormat currentDateformat = new SimpleDateFormat("dd-MM-yyyy");
                 try {
                     Date dates = currentDateformat.parse(String.valueOf(selectedDate));
                     String tanggal = format.format(dates);
