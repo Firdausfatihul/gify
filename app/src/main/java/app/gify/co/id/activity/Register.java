@@ -25,7 +25,10 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 import app.gify.co.id.R;
 
@@ -131,9 +134,18 @@ public class Register extends AppCompatActivity {
             @Override
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
                 selectedDate = new StringBuilder().append(month + 1)
-                        .append(" - ").append(day).append(" - ").append(year)
-                        .append(" ");
-                TanggalLahir.setText(selectedDate);
+                        .append("-").append(day).append("-").append(year)
+                        .append("");
+                SimpleDateFormat format = new SimpleDateFormat("EEEE, dd - MMMM - yyyy");
+                SimpleDateFormat currentDateformat = new SimpleDateFormat("MM-dd-yyyy");
+                try {
+                    Date dates = currentDateformat.parse(String.valueOf(selectedDate));
+                    String tanggal = format.format(dates);
+                    TanggalLahir.setText(tanggal);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+
             }
         };
         DatePickerDialog datePickerDialog = new DatePickerDialog(this, dateSetListener, currentdate.get(Calendar.YEAR), currentdate.get(Calendar.MONTH), currentdate.get(Calendar.DAY_OF_MONTH));
