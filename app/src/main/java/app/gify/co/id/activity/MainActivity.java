@@ -3,6 +3,8 @@ package app.gify.co.id.activity;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -23,6 +25,8 @@ public class MainActivity extends AppCompatActivity {
     SharedPreferences sharedPreferences;
 
     private AppBarConfiguration mAppBarConfiguration;
+    TextView navigationheademail;
+    TextView nama;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -32,6 +36,10 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView.removeHeaderView(navigationView.getHeaderView(0));
+        View headerLayout = navigationView.inflateHeaderView(R.layout.nav_header_main);
+        navigationheademail = headerLayout.findViewById(R.id.textViewNavigationDrawer);
+        nama = headerLayout.findViewById(R.id.namaNavigationDrawer);
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
@@ -42,7 +50,9 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        Toast.makeText(this, "", Toast.LENGTH_SHORT).show();
+        String email = sharedPreferences.getString("email", "");
+        navigationheademail.setText(email);
+        nama.setText(sharedPreferences.getString("nama", ""));
     }
 
 

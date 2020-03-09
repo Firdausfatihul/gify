@@ -22,6 +22,12 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import app.gify.co.id.R;
 import app.gify.co.id.sessions.SessionManager;
@@ -30,12 +36,15 @@ public class Login extends AppCompatActivity {
 
     FirebaseAuth mAuth;
     EditText Email, Password;
-    String email, password;
+    String email, password, userID;
     Button Masuk, Daftar;
     ProgressDialog progressBar;
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
     SessionManager sessionManager;
+    private FirebaseDatabase database;
+    private DatabaseReference userRef;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -105,12 +114,33 @@ public class Login extends AppCompatActivity {
     }
 
     private void SendUserToMainActivity() {
-        Intent mainIntent = new Intent(getApplication(), MainActivity.class);
-        sessionManager.checkLogin(true);
-        editor = sharedPreferences.edit();
-        editor.putString("email", email);
-        editor.apply();
-        startActivity(mainIntent);
-        finish();
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+        FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
+        DatabaseReference mDb = mDatabase.getReference();
+        FirebaseUser user = firebaseAuth.getCurrentUser();
+        String userKey = user.getUid();
+
+        //First Approach
+        mDb.child("Users").child(userKey).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                userID = String.valueOf(dataSnapshot.child("nama").getValue());
+                Log.d("namaku", "onDataChange: " + userID);
+                Intent mainIntent = new Intent(getApplication(), MainActivity.class);
+                sessionManager.checkLogin(true);
+                editor = sharedPreferences.edit();
+                editor.putString("email", email);
+                editor.putString("nama", userID);
+                editor.apply();
+                startActivity(mainIntent);
+                finish();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
     }
 }
