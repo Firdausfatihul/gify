@@ -22,8 +22,11 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.Calendar;
 
@@ -73,13 +76,16 @@ public class Register extends AppCompatActivity {
         Masuk = findViewById(R.id.masukRegister);
         Nama = findViewById(R.id.namaRegister);
         Email = findViewById(R.id.emailLogin);
+        NoHp = findViewById(R.id.noHPRegister);
         Password = findViewById(R.id.passwordRegister);
         TanggalLahir = findViewById(R.id.tanggalLahirRegister);
     }
 
     private void CreateNewAccount() {
+        nama = Nama.getText().toString().trim();
         email = Email.getText().toString().trim();
         password = Password.getText().toString().trim();
+        noHp = NoHp.getText().toString().trim();
 
         if (TextUtils.isEmpty(email)) {
             Toast.makeText(Register.this, "Please enter a Email", Toast.LENGTH_SHORT).show();
@@ -100,7 +106,10 @@ public class Register extends AppCompatActivity {
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
                                 String currentUserID = mAuth.getCurrentUser().getUid();
-                                RootRef.child("Users").child(currentUserID).setValue("");
+                                RootRef.child("Users").child(currentUserID).child("nama").setValue(nama);
+                                RootRef.child("Users").child(currentUserID).child("email").setValue(email);
+                                RootRef.child("Users").child(currentUserID).child("password").setValue(password);
+                                RootRef.child("Users").child(currentUserID).child("noHp").setValue(noHp);
 
                                 SendUserToMainActivity();
                                 Toast.makeText(Register.this, "Selamat! akunmu berhasil dibuat", Toast.LENGTH_SHORT).show();
