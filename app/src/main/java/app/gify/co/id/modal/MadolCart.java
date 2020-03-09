@@ -1,8 +1,8 @@
 package app.gify.co.id.modal;
 
 public class MadolCart {
-    int harga;
-    String nama, kode, jumlah, gambar;
+    private int harga;
+    private String nama, kode, jumlah, gambar;
 
     public MadolCart(String gambar, int harga, String nama, String kode, String jumlah) {
         this.gambar = gambar;
