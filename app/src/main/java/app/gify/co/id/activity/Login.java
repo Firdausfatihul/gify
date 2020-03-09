@@ -69,6 +69,7 @@ public class Login extends AppCompatActivity {
         Masuk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 email = Email.getText().toString().trim();
                 password = Password.getText().toString().trim();
                 Masuk.setVisibility(View.GONE);
