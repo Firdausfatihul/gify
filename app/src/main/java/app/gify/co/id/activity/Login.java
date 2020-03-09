@@ -1,16 +1,89 @@
 package app.gify.co.id.activity;
 
+import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import app.gify.co.id.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 
-public class Login extends AppCompatActivity{
+import app.gify.co.id.R;
+import app.gify.co.id.sessions.SessionManager;
+
+public class Login extends AppCompatActivity {
+
+    FirebaseAuth mAuth;
+    EditText Email, Password;
+    String email, password;
+    Button Masuk, Daftar;
+    ProgressDialog progressBar;
+    SharedPreferences sharedPreferences;
+    SharedPreferences.Editor editor;
+    SessionManager sessionManager;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
+
+        mAuth = FirebaseAuth.getInstance();
+
+        Email = findViewById(R.id.emailLogin);
+        Password = findViewById(R.id.passwordLogin);
+        Masuk = findViewById(R.id.masuk);
+        Daftar = findViewById(R.id.daftar);
+
+        Daftar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent registerIntent = new Intent(getApplication(), Register.class);
+                sharedPreferences = PreferenceManager.getDefaultSharedPreferences(Login.this);
+                startActivity(registerIntent);
+            }
+        });
+
+        sessionManager = new SessionManager(Login.this);
+
+        if (sessionManager.isLogged()) {
+            Intent mainIntent = new Intent(getApplication(), MainActivity.class);
+            sharedPreferences = PreferenceManager.getDefaultSharedPreferences(Login.this);
+            String emailKu = sharedPreferences.getString("email", "");
+            Log.d("emailLoginSession", emailKu);
+            startActivity(mainIntent);
+        }
+
+        Masuk.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                email = Email.getText().toString().trim();
+                password = Password.getText().toString().trim();
+                Masuk.setVisibility(View.GONE);
+                progressBar = new ProgressDialog(Login.this);
+                progressBar.setTitle("Sign In");
+
+                mAuth.signInWithEmailAndPassword(email, password)
+                        .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                if (task.isSuccessful()) {
+
+                                }
+                            }
+                        });
+            }
+        });
     }
 }
