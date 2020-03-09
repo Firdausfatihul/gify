@@ -1,4 +1,4 @@
-package app.gify.co.id.Fragment;
+package app.gify.co.id.publicload.ui.home;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -16,5 +16,6 @@ import app.gify.co.id.R;
 
 
 public class HomeFragment extends Fragment {
+
 
 }

@@ -1,22 +1,154 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#fab60b"
+    android:orientation="vertical"
+    android:layout_gravity="center"
+    android:gravity="center"
     tools:context=".publicload.ui.home.HomeFragment">
 
+    <ImageView
+        android:src="@drawable/home_ultah"
+        android:layout_width="300dp"
+        android:layout_height="300dp"/>
+
     <TextView
-        android:id="@+id/text_home"
+    android:text="Kado buat siapa?"
+    android:textStyle="bold"
+    android:textColor="#fff"
+    android:textSize="20dp"
+    android:layout_gravity="center"
+    android:gravity="center"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"/>
+
+    <TextView
+        android:id="@+id/buatSiapaCari"
+        android:background="@drawable/login_email_password"
+        android:layout_marginEnd="30dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="5dp"
+        android:hint="-- pilih --"
+        android:paddingStart="10dp"
+        android:gravity="center_vertical"
+        android:textStyle="bold"
+        android:textSize="18dp"
+        android:textColorHint="#DAAEAEAE"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:layout_height="50dp"/>
+
+    <TextView
+        android:text="Untuk acara apa?"
+        android:textStyle="bold"
+        android:textColor="#fff"
+        android:textSize="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:id="@+id/acaraApaCari"
+        android:background="@drawable/login_email_password"
+        android:layout_marginEnd="30dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="5dp"
+        android:hint="-- pilih --"
+        android:paddingStart="10dp"
+        android:gravity="center_vertical"
+        android:textStyle="bold"
+        android:textSize="18dp"
+        android:textColorHint="#DAAEAEAE"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"/>
+
+    <TextView
+        android:text="Untuk acara apa?"
+        android:textStyle="bold"
+        android:textColor="#fff"
+        android:textSize="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <LinearLayout
+        android:layout_gravity="center_vertical"
+        android:layout_marginEnd="30dp"
+        android:layout_marginStart="30dp"
+        android:orientation="horizontal"
+        android:weightSum="100"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tanggalCari"
+            android:background="@drawable/login_email_password"
+            android:layout_marginTop="5dp"
+            android:hint="28"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textSize="18dp"
+            android:textColorHint="#DAAEAEAE"
+            android:layout_weight="15"
+            android:layout_width="0dp"
+            android:layout_height="50dp"/>
+
+        <View
+            android:layout_weight="5"
+            android:layout_width="0dp"
+            android:layout_height="10dp"/>
+
+        <TextView
+            android:id="@+id/bulanCari"
+            android:background="@drawable/login_email_password"
+            android:layout_marginTop="5dp"
+            android:hint="December"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textSize="18dp"
+            android:textColorHint="#DAAEAEAE"
+            android:layout_weight="60"
+            android:layout_width="0dp"
+            android:layout_height="50dp"/>
+
+        <View
+            android:layout_weight="5"
+            android:layout_width="0dp"
+            android:layout_height="10dp"/>
+
+        <TextView
+            android:id="@+id/tahunCari"
+            android:background="@drawable/login_email_password"
+            android:layout_marginTop="5dp"
+            android:hint="1998"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textSize="18dp"
+            android:textColorHint="#DAAEAEAE"
+            android:layout_weight="15"
+            android:layout_width="0dp"
+            android:layout_height="50dp"/>
+
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/cariKado"
+        android:text="CARI KADO"
+        android:textStyle="bold"
+        android:textColor="#fff"
+        android:textSize="17dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/login_tombol"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+</LinearLayout>

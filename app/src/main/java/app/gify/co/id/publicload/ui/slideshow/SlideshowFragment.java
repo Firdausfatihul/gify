@@ -1,4 +1,4 @@
-package app.gify.co.id.Fragment;
+package app.gify.co.id.publicload.ui.slideshow;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -15,6 +15,7 @@ import androidx.lifecycle.ViewModelProviders;
 import app.gify.co.id.R;
 
 
-public class HomeFragment extends Fragment {
+public class SlideshowFragment extends Fragment {
+
 
 }
