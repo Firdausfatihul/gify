@@ -34,6 +34,8 @@
 
         <EditText
             android:id="@+id/namaRegister"
+            android:singleLine="true"
+            android:textColor="#000"
             android:hint="Nama kamu"
             android:textColorHint="#818181"
             android:autofillHints="Email"
@@ -66,7 +68,10 @@
 
         <EditText
             android:id="@+id/emailLogin"
+            android:singleLine="true"
+
             android:hint="Email"
+            android:textColor="#000"
             android:textColorHint="#818181"
             android:autofillHints="Email"
             android:paddingStart="10dp"
@@ -98,6 +103,7 @@
 
         <TextView
             android:id="@+id/tanggalLahirRegister"
+            android:singleLine="true"
             android:text="Tanggal lahir"
             android:textSize="17dp"
             android:layout_gravity="center"
@@ -133,7 +139,11 @@
 
         <EditText
             android:id="@+id/noHPRegister"
+            android:singleLine="true"
+
             android:hint="No. HP"
+            android:textColor="#000"
+            android:inputType="number"
             android:textColorHint="#818181"
             android:autofillHints="Email"
             android:paddingStart="10dp"
@@ -165,10 +175,14 @@
 
         <EditText
             android:id="@+id/passwordRegister"
+            android:inputType="textPassword"
+            android:singleLine="true"
+
             android:hint="Password"
             android:textColorHint="#818181"
             android:autofillHints="Email"
             android:paddingStart="10dp"
+            android:textColor="#000"
             android:background="@drawable/login_email_password"
             android:layout_weight="85"
             android:layout_width="0dp"
@@ -178,7 +192,7 @@
 
     <Button
         android:id="@+id/masukRegister"
-        android:text="MASUK"
+        android:text="DAFTAR"
         android:textStyle="bold"
         android:textColor="#fff"
         android:textSize="17dp"
