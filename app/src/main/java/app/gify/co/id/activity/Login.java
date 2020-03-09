@@ -76,6 +76,7 @@ public class Login extends AppCompatActivity {
                 progressBar.setTitle("Sign In");
                 progressBar.setMessage("Harap Tunggu...");
                 progressBar.setCanceledOnTouchOutside(false);
+                progressBar.setCancelable(false);
                 progressBar.show();
 
                 mAuth.signInWithEmailAndPassword(email, password)
