@@ -78,29 +78,37 @@ public class Login extends AppCompatActivity {
                 progressBar.setCanceledOnTouchOutside(false);
                 progressBar.setCancelable(false);
                 progressBar.show();
-
-                mAuth.signInWithEmailAndPassword(email, password)
-                        .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                if (task.isSuccessful()) {
-                                    Toast.makeText(Login.this, "Selamat datang!", Toast.LENGTH_SHORT).show();
-                                    SendUserToMainActivity();
-                                    progressBar.dismiss();
+                if (email.isEmpty() || password.isEmpty()){
+                    Toast.makeText(Login.this, "Isi terlebih dulu yang kosong", Toast.LENGTH_SHORT).show();
+                    progressBar.dismiss();
+                }else {
+                    mAuth.signInWithEmailAndPassword(email, password)
+                            .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                                @Override
+                                public void onComplete(@NonNull Task<AuthResult> task) {
+                                    if (task.isSuccessful()) {
+                                        Toast.makeText(Login.this, "Selamat datang!", Toast.LENGTH_SHORT).show();
+                                        SendUserToMainActivity();
+                                        progressBar.dismiss();
+                                    }
+                                    else {
+                                        String message = task.getException().toString();
+                                        Toast.makeText(Login.this, "Error: " + message, Toast.LENGTH_SHORT).show();
+                                        progressBar.dismiss();
+                                    }
                                 }
-                                else {
-                                    String message = task.getException().toString();
-                                    Toast.makeText(Login.this, "Error: " + message, Toast.LENGTH_SHORT).show();
-                                    progressBar.dismiss();
-                                }
-                            }
-                        });
+                            });
+                }
             }
         });
     }
 
     private void SendUserToMainActivity() {
         Intent mainIntent = new Intent(getApplication(), MainActivity.class);
+        sessionManager.checkLogin(true);
+        editor = sharedPreferences.edit();
+        editor.putString("email", email);
+        editor.apply();
         startActivity(mainIntent);
     }
 }

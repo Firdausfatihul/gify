@@ -188,7 +188,7 @@
 
     <Button
         android:id="@+id/masukRegister"
-        android:text="MASUK"
+        android:text="DAFTAR"
         android:textStyle="bold"
         android:textColor="#fff"
         android:textSize="17dp"
