@@ -114,19 +114,18 @@ public class Login extends AppCompatActivity {
     }
 
     private void SendUserToMainActivity() {
-        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
         FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
         DatabaseReference mDb = mDatabase.getReference();
-        FirebaseUser user = firebaseAuth.getCurrentUser();
-        String userKey = user.getUid();
+        String user = mAuth.getCurrentUser().getUid();
 
         //First Approach
-        mDb.child("Users").child(userKey).addValueEventListener(new ValueEventListener() {
+        mDb.child("Users").child(user).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 userID = String.valueOf(dataSnapshot.child("nama").getValue());
                 Log.d("namaku", "onDataChange: " + userID);
                 Intent mainIntent = new Intent(getApplication(), MainActivity.class);
+                sharedPreferences = PreferenceManager.getDefaultSharedPreferences(Login.this);
                 sessionManager.checkLogin(true);
                 editor = sharedPreferences.edit();
                 editor.putString("email", email);
