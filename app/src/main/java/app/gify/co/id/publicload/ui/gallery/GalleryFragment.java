@@ -17,5 +17,5 @@ import app.gify.co.id.R;
 
 public class GalleryFragment extends Fragment {
 
-    
+
 }
