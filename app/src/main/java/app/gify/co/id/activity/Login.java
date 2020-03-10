@@ -74,6 +74,7 @@ public class Login extends AppCompatActivity {
             String emailKu = sharedPreferences.getString("email", "");
             Log.d("emailLoginSession", emailKu);
             startActivity(mainIntent);
+            finish();
         }
 
         Masuk.setOnClickListener(new View.OnClickListener() {
@@ -91,6 +92,8 @@ public class Login extends AppCompatActivity {
                 //wajib di tambahkan untuk menghindari null
                 if (email.isEmpty() || password.isEmpty()){
                     Toast.makeText(Login.this, "Isi yang kosong terlebih dahulu", Toast.LENGTH_SHORT).show();
+                    progressBar.dismiss();
+                    Masuk.setVisibility(View.VISIBLE);
                 }else {
                     mAuth.signInWithEmailAndPassword(email, password)
                             .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -99,12 +102,13 @@ public class Login extends AppCompatActivity {
                                     if (task.isSuccessful()) {
                                         Toast.makeText(Login.this, "Selamat datang!", Toast.LENGTH_SHORT).show();
                                         SendUserToMainActivity();
-                                        progressBar.dismiss();
+
                                     }
                                     else {
                                         String message = task.getException().toString();
-                                        Toast.makeText(Login.this, "Error: " + message, Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(Login.this, "Email / Sandi salah " , Toast.LENGTH_SHORT).show();
                                         progressBar.dismiss();
+                                        Masuk.setVisibility(View.VISIBLE);
                                     }
                                 }
                             });

@@ -3,12 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/nav_home">
+    app:startDestination="@+id/nav_belikado">
 
     <fragment
-        android:id="@+id/nav_home"
+        android:id="@+id/nav_belikado"
         android:name="app.gify.co.id.publicload.ui.home.HomeFragment"
-        android:label="@string/menu_home"
+        android:label="Gify"
         tools:layout="@layout/fragment_home">
 
         <action
@@ -22,7 +22,7 @@
         tools:layout="@layout/fragment_home_second">
         <action
             android:id="@+id/action_HomeSecondFragment_to_HomeFragment"
-            app:destination="@id/nav_home" />
+            app:destination="@id/nav_belikado" />
 
         <argument
             android:name="myArg"
@@ -30,14 +30,20 @@
     </fragment>
 
     <fragment
-        android:id="@+id/nav_gallery"
+        android:id="@+id/nav_favorit"
         android:name="app.gify.co.id.publicload.ui.gallery.GalleryFragment"
         android:label="@string/menu_gallery"
         tools:layout="@layout/fragment_gallery" />
 
     <fragment
-        android:id="@+id/nav_slideshow"
+        android:id="@+id/nav_pembelian"
         android:name="app.gify.co.id.publicload.ui.slideshow.SlideshowFragment"
+        android:label="@string/menu_slideshow"
+        tools:layout="@layout/fragment_slideshow" />
+
+    <fragment
+        android:id="@+id/nav_keluar"
+        android:name="app.gify.co.id.publicload.ui.keluar.KeluarFragment"
         android:label="@string/menu_slideshow"
         tools:layout="@layout/fragment_slideshow" />
 </navigation>

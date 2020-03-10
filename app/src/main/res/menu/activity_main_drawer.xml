@@ -5,20 +5,38 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_home"
+            android:id="@+id/nav_belikado"
             android:icon="@drawable/giftbox"
-            android:iconTint="#fd672c"
+            android:iconTint="#FF0000"
             android:iconTintMode="add"
-            android:title="@string/menu_home" />
+            android:title="Beli Kado Yuk!" />
         <item
-            android:id="@+id/nav_gallery"
+            android:id="@+id/nav_favorit"
             android:icon="@drawable/star"
-            android:iconTint="#fd672c"
-            android:title="@string/menu_gallery" />
+            android:iconTint="#FF0000"
+            android:title="Favorit" />
         <item
-            android:id="@+id/nav_slideshow"
+            android:id="@+id/nav_pembelian"
             android:icon="@drawable/add_to_cart"
-            android:iconTint="#fd672c"
-            android:title="@string/menu_slideshow" />
+            android:iconTint="#FF0000"
+            android:title="Pembelian" />
+
+    </group>
+
+    <item android:title=""/>
+    <group>
+
+        <item
+            android:id="@+id/nav_pengaturan"
+            android:icon="@drawable/settings"
+            android:iconTint="#FF0000"
+            android:title="Pengaturan" />
+        <item
+            android:id="@+id/nav_keluar"
+            android:icon="@drawable/logout"
+            android:iconTint="#FF0000"
+            android:title="Keluar" />
+
+
     </group>
 </menu>
