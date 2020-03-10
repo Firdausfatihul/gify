@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/nav_belikado"
         android:name="app.gify.co.id.publicload.ui.home.HomeFragment"
-        android:label="Gify"
+        android:label="GIFY"
         tools:layout="@layout/fragment_home">
 
         <action

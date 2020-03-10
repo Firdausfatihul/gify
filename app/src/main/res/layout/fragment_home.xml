@@ -67,7 +67,7 @@
         android:layout_height="50dp"/>
 
     <TextView
-        android:text="Untuk acara apa?"
+        android:text="Masukan tanggal lahir dia"
         android:textStyle="bold"
         android:textColor="#fff"
         android:textSize="20dp"
