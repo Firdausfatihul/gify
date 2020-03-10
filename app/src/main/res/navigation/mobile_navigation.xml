@@ -14,12 +14,15 @@
         <action
             android:id="@+id/action_HomeFragment_to_HomeSecondFragment"
             app:destination="@id/nav_home_second" />
+        <action
+            android:id="@+id/action_nav_belikado_to_nav_pengaturan"
+            app:destination="@id/nav_pengaturan" />
     </fragment>
     <fragment
         android:id="@+id/nav_home_second"
-        android:name="app.gify.co.id.publicload.ui.home.HomeSecondFragment"
+        android:name="app.gify.co.id.publicload.ui.home.HomeFragment"
         android:label="@string/home_second"
-        tools:layout="@layout/fragment_home_second">
+        tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/action_HomeSecondFragment_to_HomeFragment"
             app:destination="@id/nav_belikado" />
@@ -32,18 +35,22 @@
     <fragment
         android:id="@+id/nav_favorit"
         android:name="app.gify.co.id.publicload.ui.gallery.GalleryFragment"
-        android:label="@string/menu_gallery"
+        android:label="Favorit"
         tools:layout="@layout/fragment_gallery" />
 
     <fragment
         android:id="@+id/nav_pembelian"
-        android:name="app.gify.co.id.publicload.ui.slideshow.SlideshowFragment"
-        android:label="@string/menu_slideshow"
+        android:label="Pembelian"
         tools:layout="@layout/fragment_slideshow" />
+
+    <fragment
+        android:id="@+id/nav_pengaturan"
+        android:name="app.gify.co.id.publicload.ui.pengaturan.PengaturanFragment"
+        android:label="Pengaturan"
+        tools:layout="@layout/fragment_pengaturan" />
 
     <fragment
         android:id="@+id/nav_keluar"
         android:name="app.gify.co.id.publicload.ui.keluar.KeluarFragment"
-        android:label="@string/menu_slideshow"
         tools:layout="@layout/fragment_slideshow" />
 </navigation>

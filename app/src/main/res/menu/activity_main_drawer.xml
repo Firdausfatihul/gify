@@ -6,7 +6,7 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_belikado"
-            android:icon="@drawable/giftbox"
+            android:icon="@drawable/giftbox1"
             android:iconTint="#FF0000"
             android:iconTintMode="add"
             android:title="Beli Kado Yuk!" />
