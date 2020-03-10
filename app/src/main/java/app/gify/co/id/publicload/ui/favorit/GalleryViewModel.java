@@ -1,4 +1,4 @@
-package app.gify.co.id.publicload.ui.gallery;
+package app.gify.co.id.publicload.ui.favorit;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
