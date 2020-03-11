@@ -102,6 +102,7 @@ public class Login extends AppCompatActivity {
                                     if (task.isSuccessful()) {
                                         Toast.makeText(Login.this, "Selamat datang!", Toast.LENGTH_SHORT).show();
                                         SendUserToMainActivity();
+                                        progressBar.dismiss();
 
                                     }
                                     else {

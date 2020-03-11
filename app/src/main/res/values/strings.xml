@@ -14,4 +14,39 @@
     <string name="menu_slideshow">Slideshow</string>
 
     <string name="home_second">Home Second</string>
+
+    <string-array name="kadolist">
+        <item>--PILIH--</item>
+        <item>Adik Laki-Laki</item>
+        <item>Adik Perempuan</item>
+        <item>Kakak Laki-Laki</item>
+        <item>Kakak Perempuan</item>
+        <item>Anak Laki-Laki</item>
+        <item>Anak Perempuan</item>
+        <item>Ayah</item>
+        <item>Ibu</item>
+        <item>Suami</item>
+        <item>Istri</item>
+        <item>Pacar (Laki-Laki)</item>
+        <item>Pacar (Perempuan)</item>
+        <item>Kakek</item>
+        <item>Nenek</item>
+        <item>Om (Paman)</item>
+        <item>Tante (Bibi)</item>
+        <item>Guru</item>
+        <item>Atasan</item>
+        <item>Kerabat</item>
+        <item>Two</item>
+        <item>Three</item>
+        <item>Four</item>
+        <item>Five</item>
+    </string-array>
+    <string-array name="acaralist">
+        <item>--PILIH--</item>
+        <item>Ulang tahun</item>
+        <item>Anniversary (Pernikahan)</item>
+        <item>New Born Baby</item>
+        <item>Graduation</item>
+        <item>Welcome Gift</item>
+    </string-array>
 </resources>
