@@ -3,7 +3,7 @@ package app.gify.co.id.sessions;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-public class SessionManager {
+public class    SessionManager {
 
     SharedPreferences preferences;
     SharedPreferences.Editor editor;

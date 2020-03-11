@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -39,7 +40,7 @@ public class Register extends AppCompatActivity {
 
     EditText Nama, Email, NoHp, Password;
     TextView TanggalLahir;
-    String nama, email, noHp, password, tanggallahir;
+    String nama, email, noHp, password, currentUserID;
     Button Masuk;
 
     Calendar date;
@@ -108,7 +109,7 @@ public class Register extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
-                                String currentUserID = mAuth.getCurrentUser().getUid();
+                                currentUserID = mAuth.getCurrentUser().getUid();
                                 RootRef.child("Users").child(currentUserID).child("nama").setValue(nama);
                                 RootRef.child("Users").child(currentUserID).child("email").setValue(email);
                                 RootRef.child("Users").child(currentUserID).child("password").setValue(password);
@@ -130,6 +131,24 @@ public class Register extends AppCompatActivity {
     }
 
     private void SendUserToMainActivity() {
+        RootRef.child("Users").child(currentUserID).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                String Lnama = String.valueOf(dataSnapshot.child("nama").getValue());
+                String Lemail = String.valueOf(dataSnapshot.child("email").getValue());
+                String LnoHp = String.valueOf(dataSnapshot.child("noHp").getValue());
+                String Lpassword = String.valueOf(dataSnapshot.child("password").getValue());
+                String Ltanggal = String.valueOf(dataSnapshot.child("tanggal").getValue());
+                String LID = dataSnapshot.getKey();
+
+               Log.d("cobalah ",LID + " " + "Nama: " + Lnama + " " + "Email: " + Lemail + " " + "noHp: " + LnoHp + " " + "Password: " + Lpassword + " " + "Tanggal: " + Ltanggal);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
         Intent loginIntent = new Intent(getApplication(), Login.class);
         startActivity(loginIntent);
         finish();
