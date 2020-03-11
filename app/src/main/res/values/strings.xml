@@ -16,7 +16,6 @@
     <string name="home_second">Home Second</string>
 
     <string-array name="kadolist">
-        <item>--PILIH--</item>
         <item>Adik Laki-Laki</item>
         <item>Adik Perempuan</item>
         <item>Kakak Laki-Laki</item>
@@ -36,13 +35,8 @@
         <item>Guru</item>
         <item>Atasan</item>
         <item>Kerabat</item>
-        <item>Two</item>
-        <item>Three</item>
-        <item>Four</item>
-        <item>Five</item>
     </string-array>
     <string-array name="acaralist">
-        <item>--PILIH--</item>
         <item>Ulang tahun</item>
         <item>Anniversary (Pernikahan)</item>
         <item>New Born Baby</item>
