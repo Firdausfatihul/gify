@@ -100,8 +100,18 @@ public class Login extends AppCompatActivity {
                                 @Override
                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                     if (task.isSuccessful()) {
-                                        Toast.makeText(Login.this, "Selamat datang!", Toast.LENGTH_SHORT).show();
-                                        SendUserToMainActivity();
+                                        mAuth.getCurrentUser().sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<Void> task) {
+                                                if (mAuth.getCurrentUser().isEmailVerified()) {
+                                                    Toast.makeText(Login.this, "Selamat Datang!", Toast.LENGTH_SHORT).show();
+                                                    SendUserToMainActivity();
+                                                } else {
+                                                    Toast.makeText(Login.this, "Silahkan verifikasi", Toast.LENGTH_SHORT).show();
+                                                }
+                                            }
+                                        });
+                                        Masuk.setVisibility(View.VISIBLE);
                                         progressBar.dismiss();
 
                                     }
