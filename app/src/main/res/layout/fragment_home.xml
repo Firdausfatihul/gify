@@ -80,12 +80,12 @@
         android:orientation="horizontal"
         android:weightSum="100">
 
-        <TextView
+        <Spinner
             android:id="@+id/tanggalCari"
             android:layout_width="0dp"
             android:layout_height="50dp"
             android:layout_marginTop="5dp"
-            android:layout_weight="17"
+            android:layout_weight="23"
             android:background="@drawable/login_email_password"
             android:gravity="center"
             android:hint="28"
@@ -98,12 +98,12 @@
             android:layout_height="10dp"
             android:layout_weight="3" />
 
-        <TextView
+        <Spinner
             android:id="@+id/bulanCari"
             android:layout_width="0dp"
             android:layout_height="50dp"
             android:layout_marginTop="5dp"
-            android:layout_weight="60"
+            android:layout_weight="50"
             android:background="@drawable/login_email_password"
             android:gravity="center"
             android:hint="December"
@@ -116,12 +116,12 @@
             android:layout_height="10dp"
             android:layout_weight="3" />
 
-        <TextView
+        <Spinner
             android:id="@+id/tahunCari"
             android:layout_width="0dp"
             android:layout_height="50dp"
             android:layout_marginTop="5dp"
-            android:layout_weight="17"
+            android:layout_weight="25"
             android:background="@drawable/login_email_password"
             android:gravity="center"
             android:hint="1998"
