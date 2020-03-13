@@ -97,7 +97,7 @@
                     <com.synnapps.carouselview.CarouselView
                         app:autoPlay="false"
                         android:layout_width="match_parent"
-                        android:layout_height="190"/>
+                        android:layout_height="190dp"/>
 
 
                 </LinearLayout>
