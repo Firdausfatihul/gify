@@ -176,7 +176,7 @@
                 <LinearLayout
                     android:gravity="center"
                     android:orientation="vertical"
-                    android:layout_weight="50"
+                    android:layout_weight="48"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content">
 
@@ -191,6 +191,7 @@
                     <EditText
                         android:id="@+id/namaDepanPengaturan"
                         android:hint="Nama depan"
+                        android:background="@drawable/dbjadjahdja"
                         android:textColorHint="#b5a981"
                         android:textStyle="bold"
                         android:textSize="15dp"
@@ -200,14 +201,20 @@
                         android:layout_height="wrap_content"
                         android:autofillHints="Nama depan" />
 
+
                 </LinearLayout>
+
+                <View
+                    android:layout_weight="4"
+                    android:layout_width="0dp"
+                    android:layout_height="2dp"/>
 
 
                 <LinearLayout
                     android:gravity="center"
                     android:layout_gravity="center"
                     android:orientation="vertical"
-                    android:layout_weight="50"
+                    android:layout_weight="48"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content">
 
@@ -221,6 +228,7 @@
                     <EditText
                         android:id="@+id/namaBelakangPengaturan"
                         android:hint="Nama belakang"
+                        android:background="@drawable/dbjadjahdja"
                         android:textColorHint="#b5a981"
                         android:textStyle="bold"
                         android:textSize="15dp"
@@ -229,6 +237,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:autofillHints="Nama depan" />
+
 
                 </LinearLayout>
 
@@ -256,11 +265,13 @@
                     android:layout_height="wrap_content"
                     android:autofillHints="Nama depan"
                     android:hint="0878-9968-xxx"
+                    android:background="@drawable/dbjadjahdja"
                     android:singleLine="true"
                     android:textColor="#b5a981"
                     android:textColorHint="#b5a981"
                     android:textSize="15dp"
                     android:textStyle="bold" />
+
 
             </LinearLayout>
 
@@ -282,14 +293,15 @@
 
                 <EditText
                     android:id="@+id/emailPengaturan"
+                    android:background="@drawable/dbjadjahdja"
                     android:hint="nasrudin01@gmail.com"
                     android:textColorHint="#b5a981"
                     android:textStyle="bold"
                     android:textSize="15dp"
                     android:textColor="#b5a981"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:autofillHints="Nama depan" />
+                    android:layout_height="wrap_content" />
+
 
             </LinearLayout>
 
@@ -325,6 +337,7 @@
                     <EditText
                         android:id="@+id/edittextAlamatPengaturan"
                         android:visibility="gone"
+                        android:background="@drawable/dbjadjahdja"
                         android:hint="nasrudin01@gmail.com"
                         android:textColorHint="#b5a981"
                         android:textStyle="bold"
@@ -365,10 +378,10 @@
 
 
                 <View
-                    android:background="#b5a981"
+                    android:background="#fae59d"
                     android:layout_marginTop="2dp"
                     android:layout_width="match_parent"
-                    android:layout_height="0.2dp"/>
+                    android:layout_height="4.5dp"/>
 
                 <LinearLayout
                     android:id="@+id/pilihKelurahanPengaturan"
@@ -408,7 +421,7 @@
                     android:background="#b5a981"
                     android:layout_marginTop="2dp"
                     android:layout_width="match_parent"
-                    android:layout_height="0.2dp"/>
+                    android:layout_height="4.5dp"/>
 
                 <LinearLayout
                     android:id="@+id/pilihKecamatanPengaturan"
@@ -448,7 +461,7 @@
                     android:background="#b5a981"
                     android:layout_marginTop="2dp"
                     android:layout_width="match_parent"
-                    android:layout_height="0.2dp"/>
+                    android:layout_height="4.5dp"/>
 
                 <LinearLayout
                     android:id="@+id/pilihKotaPengaturan"
@@ -488,7 +501,7 @@
                     android:background="#b5a981"
                     android:layout_marginTop="2dp"
                     android:layout_width="match_parent"
-                    android:layout_height="0.2dp"/>
+                    android:layout_height="4.5dp"/>
 
                 <LinearLayout
                     android:id="@+id/pilihProvinsiPengaturan"
@@ -528,7 +541,7 @@
                     android:background="#b5a981"
                     android:layout_marginTop="2dp"
                     android:layout_width="match_parent"
-                    android:layout_height="0.2dp"/>
+                    android:layout_height="4.5dp"/>
 
                 <View
                     android:layout_width="match_parent"
