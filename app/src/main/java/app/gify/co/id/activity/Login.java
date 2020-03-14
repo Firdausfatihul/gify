@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.os.PersistableBundle;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -36,6 +37,7 @@ public class Login extends AppCompatActivity {
 
     FirebaseAuth mAuth;
     EditText Email, Password;
+    TextView lupaSandi;
     String email, password, userID;
     Button Masuk, Daftar;
     ProgressDialog progressBar;
@@ -56,6 +58,7 @@ public class Login extends AppCompatActivity {
         Password = findViewById(R.id.passwordLogin);
         Masuk = findViewById(R.id.masuk);
         Daftar = findViewById(R.id.daftar);
+        lupaSandi = findViewById(R.id.lupaSandi);
 
         Daftar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,6 +79,14 @@ public class Login extends AppCompatActivity {
             startActivity(mainIntent);
             finish();
         }
+
+        lupaSandi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplication(), LupaSandi.class);
+                startActivity(intent);
+            }
+        });
 
         Masuk.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -111,6 +122,8 @@ public class Login extends AppCompatActivity {
                                                 }
                                             }
                                         });
+                                        Toast.makeText(Login.this, "Selamat Datang!", Toast.LENGTH_SHORT).show();
+                                        SendUserToMainActivity();
                                         Masuk.setVisibility(View.VISIBLE);
                                         progressBar.dismiss();
 
