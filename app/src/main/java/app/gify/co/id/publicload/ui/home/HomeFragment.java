@@ -60,13 +60,15 @@ import app.gify.co.id.activity.List_Kado;
 
 public class HomeFragment extends Fragment implements AdapterView.OnItemSelectedListener {
     private HomeViewModel homeViewModel;
-    String kadobuatsiapaku, acaraapaku, hariku, bulanku, tahunku;
+    String kadobuatsiapaku, acaraapaku, bulanku;
     NumberPicker numberpicker;
+    int hariku, tahunku, bulanserver;
     Spinner kadobuatsiapa, acarapa;
     private Calendar date;
     TextView tahun,hari, bulan;
     HintArrayAdapter hintAdapter, hintadapterku;
     String[] kadolist;
+    Boolean bulanbool=false, haribool=false, tahunbool=false;
     Button carikado;
 
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -82,82 +84,129 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
         hintAdapter = new HintArrayAdapter<String>(getContext(), 0);
         hintadapterku = new HintArrayAdapter<String>(getContext(), 0);
 
-        hari.setOnClickListener(view1 -> showdatedaypicker());
+        hari.setOnClickListener(view1 -> {
+            haribool = true;
+            showdatedaypicker();
+        });
 
         getkategori();
         getAcara();
 
         tahun.setOnClickListener(view1 -> showdateyearpicker());
 
-        bulan.setOnClickListener(view -> showdatemonthpicker());
+        bulan.setOnClickListener(view -> {
+            bulanbool = true;
+            showdatedaypicker();
+        });
 
         carikado.setOnClickListener(view1 ->  {
+            kadobuatsiapa.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                    kadobuatsiapaku = String.valueOf(adapterView.getSelectedItem());
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> adapterView) {
+
+                }
+            });
+            acarapa.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                    acaraapaku = String.valueOf(adapterView.getSelectedItem());
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> adapterView) {
+
+                }
+            });
+            Log.d("logdku", "onCreateView: " + hariku + " s " + bulanku + " s " + tahunku + " s " + kadobuatsiapaku + " s " + acaraapaku);
+            if (hariku == 0 || bulanku == null || tahunku == 0 || kadobuatsiapaku == null || acaraapaku == null){
+                Toast.makeText(getContext(), "Isi Terlebih dahulu yang kosong", Toast.LENGTH_SHORT).show();
+            }else {
+
                 Intent intent = new Intent(getContext(), List_Kado.class);
                 startActivity(intent);
-        });
-        return root;
-    }
-
-    private void showdatemonthpicker(){
-        final Calendar currentdate = Calendar.getInstance();
-        date = Calendar.getInstance();
-        DatePickerDialog.OnDateSetListener dateSetListener = ((datePicker, year, month, day) -> {
-            Log.d("monthasda", "showdatemonthpicker: " + month);
-            switch (month){
-                case 0:
-                    bulan.setText("Januari");
-                    break;
-                case 1:
-                    bulan.setText("Februari");
-                    break;
-                case 2:
-                    bulan.setText("Maret");
-                    break;
-                case 3:
-                    bulan.setText("April");
-                    break;
-                case 4:
-                    bulan.setText("Mei");
-                    break;
-                case 5:
-                    bulan.setText("Juni");
-                    break;
-                case 6:
-                    bulan.setText("Juli");
-                    break;
-                case 7:
-                    bulan.setText("Agustus");
-                    break;
-                case 8:
-                    bulan.setText("September");
-                    break;
-                case 9:
-                    bulan.setText("October");
-                    break;
-                case 10:
-                    bulan.setText("November");
-                    break;
-                case 11:
-                    bulan.setText("December");
-                    break;
+                getActivity().finish();
             }
         });
-        DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(),android.R.style.Theme_Holo_Dialog, dateSetListener, currentdate.get(Calendar.YEAR), currentdate.get(Calendar.MONTH), currentdate.get(Calendar.DAY_OF_MONTH));
-        ((ViewGroup) datePickerDialog.getDatePicker()).findViewById(Resources.getSystem().getIdentifier("year", "id", "android")).setVisibility(View.GONE);
-        ((ViewGroup) datePickerDialog.getDatePicker()).findViewById(Resources.getSystem().getIdentifier("day", "id", "android")).setVisibility(View.GONE);
-        datePickerDialog.show();
+        return root;
     }
 
     private void showdatedaypicker() {
         final Calendar currentdate = Calendar.getInstance();
         date = Calendar.getInstance();
         DatePickerDialog.OnDateSetListener dateSetListener = (datePicker, year, month, day) -> {
-            Log.d("asda", "showdateyearpicker: " + year);
-            hari.setText(String.valueOf(day));
+            if (bulanbool){
+                bulanserver = month;
+                switch (month) {
+                    case 0:
+                        bulan.setText("Januari");
+                        bulanku = "Januari";
+                        break;
+                    case 1:
+                        bulan.setText("Februari");
+                        bulanku = "Februari";
+                        break;
+                    case 2:
+                        bulan.setText("Maret");
+                        bulanku = "Maret";
+                        break;
+                    case 3:
+                        bulan.setText("April");
+                        bulanku = "April";
+                        break;
+                    case 4:
+                        bulan.setText("Mei");
+                        bulanku = "Mei";
+                        break;
+                    case 5:
+                        bulan.setText("Juni");
+                        bulanku = "Juni";
+                        break;
+                    case 6:
+                        bulan.setText("Juli");
+                        bulanku = "Juli";
+                        break;
+                    case 7:
+                        bulan.setText("Agustus");
+                        bulanku = "Agustus";
+                        break;
+                    case 8:
+                        bulan.setText("September");
+                        bulanku = "September";
+                        break;
+                    case 9:
+                        bulan.setText("October");
+                        bulanku = "October";
+                        break;
+                    case 10:
+                        bulan.setText("November");
+                        bulanku = "November";
+                        break;
+                    case 11:
+                        bulan.setText("Desember");
+                        bulanku = "Desember";
+                        break;
+                }
+            }else if (haribool){
+                hari.setText(String.valueOf(day));
+                hariku = day;
+            }
+            haribool=false;
+            bulanbool=false;
         };
         DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(),android.R.style.Theme_Holo_Dialog, dateSetListener, currentdate.get(Calendar.YEAR), currentdate.get(Calendar.MONTH), currentdate.get(Calendar.DAY_OF_MONTH));
+        if (bulanbool){
+            ((ViewGroup) datePickerDialog.getDatePicker()).findViewById(Resources.getSystem().getIdentifier("month", "id", "android")).setVisibility(View.VISIBLE);
+            ((ViewGroup) datePickerDialog.getDatePicker()).findViewById(Resources.getSystem().getIdentifier("day", "id", "android")).setVisibility(View.GONE);
+        }else if (haribool){
+            ((ViewGroup) datePickerDialog.getDatePicker()).findViewById(Resources.getSystem().getIdentifier("month", "id", "android")).setVisibility(View.GONE);
+            ((ViewGroup) datePickerDialog.getDatePicker()).findViewById(Resources.getSystem().getIdentifier("day", "id", "android")).setVisibility(View.VISIBLE);
+        }
         ((ViewGroup) datePickerDialog.getDatePicker()).findViewById(Resources.getSystem().getIdentifier("year", "id", "android")).setVisibility(View.GONE);
-        ((ViewGroup) datePickerDialog.getDatePicker()).findViewById(Resources.getSystem().getIdentifier("month", "id", "android")).setVisibility(View.GONE);
         datePickerDialog.show();
     }
 
@@ -167,6 +216,7 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
         DatePickerDialog.OnDateSetListener dateSetListener = (datePicker, year, month, day) -> {
             Log.d("asda", "showdateyearpicker: " + year);
             tahun.setText(String.valueOf(year));
+            tahunku = year;
         };
         DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(),android.R.style.Theme_Holo_Dialog, dateSetListener, currentdate.get(Calendar.YEAR), currentdate.get(Calendar.MONTH), currentdate.get(Calendar.DAY_OF_MONTH));
         ((ViewGroup) datePickerDialog.getDatePicker()).findViewById(Resources.getSystem().getIdentifier("day", "id", "android")).setVisibility(View.GONE);
@@ -258,13 +308,7 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
                     e.printStackTrace();
                 }
             }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.d("onerror", "onErrorResponse: " + error.getMessage());
-
-            }
-        });
+        }, error -> Log.d("onerror", "onErrorResponse: " + error.getMessage()));
         RequestQueue queue = Volley.newRequestQueue(getContext());
         Log.d("queue", "getkategori: " + objectRequest + queue);
         queue.add(objectRequest);
@@ -292,13 +336,32 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
                     e.printStackTrace();
                 }
             }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.d("acarakuk", "onResponse: " + error.getMessage());
+        }, error -> Log.d("acarakuk", "onResponse: " + error.getMessage()));
+        RequestQueue queue = Volley.newRequestQueue(getContext());
+        queue.add(objectRequest);
+    }
 
+    private void getRange(){
+        JsonObjectRequest objectRequest = new JsonObjectRequest(Request.Method.GET, "http://192.168.3.156/gify/api/range.php", null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    JSONArray array = response.getJSONArray("YukNgaji");
+                    for (int a = 0; a < array.length(); a++){
+                        JSONObject object = array.getJSONObject(a);
+                        String nama = object.getString("nama");
+                        int hari = object.getInt("hari");
+                        int bulan = object.getInt("bulan");
+                        int hariend = object.getInt("hariend");
+                        int bulanend = object.getInt("bulanend");
+                        if (bulanserver > bulan && );
+                    }
+                } catch (JSONException e) {
+                    Log.d("rangeku", "onResponse: " );
+                    e.printStackTrace();
+                }
             }
-        });
+        }, error -> Log.d("rangeerror", "onResponse: " + error.getMessage()));
         RequestQueue queue = Volley.newRequestQueue(getContext());
         queue.add(objectRequest);
     }
