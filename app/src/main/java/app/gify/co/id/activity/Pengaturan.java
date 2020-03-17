@@ -2,10 +2,13 @@ package app.gify.co.id.activity;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -14,17 +17,22 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.List;
 
 import app.gify.co.id.R;
 
 public class Pengaturan extends AppCompatActivity {
 
     EditText NamaDepan, NamaBelakang, NoHp, Email;
+    LinearLayout changePicture;
     String namadepan, namabelakang, noHp, email, currentUserID, nama;
     ImageView CheckList, Back;
-
     ProgressDialog loadingBar;
 
     FirebaseAuth mAuth;
@@ -41,6 +49,7 @@ public class Pengaturan extends AppCompatActivity {
         Email = findViewById(R.id.emailPengaturan);
         CheckList = findViewById(R.id.checklistPengaturan);
         Back = findViewById(R.id.backPengaturan);
+        changePicture = findViewById(R.id.changePicturePengaturan);
 
         mAuth = FirebaseAuth.getInstance();
         RootRef = FirebaseDatabase.getInstance().getReference();
@@ -54,7 +63,6 @@ public class Pengaturan extends AppCompatActivity {
                 noHp = NoHp.getText().toString().trim();
                 email = Email.getText().toString().trim();
                 nama = namadepan + " " + namabelakang;
-
                 loadingBar = new ProgressDialog(Pengaturan.this);
                 loadingBar.setTitle("Mengubah Data...");
                 loadingBar.setMessage("Harap Tunggu...");
@@ -100,5 +108,6 @@ public class Pengaturan extends AppCompatActivity {
                 finish();
             }
         });
+
     }
 }

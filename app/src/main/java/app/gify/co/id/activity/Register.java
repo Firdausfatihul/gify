@@ -31,8 +31,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.iid.FirebaseInstanceId;
-import com.google.firebase.iid.InstanceIdResult;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -52,7 +50,6 @@ public class Register extends AppCompatActivity {
     StringBuilder selectedDate;
 
     FirebaseAuth mAuth;
-    FirebaseInstanceId instanceId;
     DatabaseReference RootRef;
 
     ProgressDialog loadingBar;
@@ -64,7 +61,6 @@ public class Register extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
         RootRef = FirebaseDatabase.getInstance().getReference();
-        instanceId = FirebaseInstanceId.getInstance();
 
         InitializeFields();
 
@@ -80,19 +76,6 @@ public class Register extends AppCompatActivity {
             public void onClick(View v) {
                 CreateNewAccount();
             }
-        });
-
-        instanceId.getInstanceId().addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
-            @Override
-            public void onComplete(@NonNull Task<InstanceIdResult> task) {
-                if (!task.isSuccessful()) {
-                    Log.d("salah notif", "error: " + task.getException());
-                    return;
-                }
-
-                String token = task.getResult().getToken();
-            }
-            
         });
 
 

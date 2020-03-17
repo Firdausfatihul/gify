@@ -56,6 +56,7 @@ import java.util.Locale;
 
 import app.gify.co.id.R;
 import app.gify.co.id.activity.List_Kado;
+import okhttp3.OkHttpClient;
 
 
 public class HomeFragment extends Fragment implements AdapterView.OnItemSelectedListener {
@@ -86,6 +87,7 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
 
         getkategori();
         getAcara();
+        getOngkir();
 
         tahun.setOnClickListener(view1 -> showdateyearpicker());
 
@@ -96,6 +98,17 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
                 startActivity(intent);
         });
         return root;
+    }
+
+    private void getOngkir() {
+        OkHttpClient client = new OkHttpClient();
+
+        okhttp3.Request request = new okhttp3.Request.Builder()
+                .url("https://api.rajaongkir.com/starter/city?id=39&province=5")
+                .get()
+                .addHeader("key", "31c10f03935767476539d6e3b115ee97")
+                .build();
+
     }
 
     private void showdatemonthpicker(){
