@@ -56,18 +56,19 @@ import java.util.Locale;
 
 import app.gify.co.id.R;
 import app.gify.co.id.activity.List_Kado;
-import okhttp3.OkHttpClient;
 
 
 public class HomeFragment extends Fragment implements AdapterView.OnItemSelectedListener {
     private HomeViewModel homeViewModel;
-    String kadobuatsiapaku, acaraapaku, hariku, bulanku, tahunku;
+    String kadobuatsiapaku, acaraapaku, bulanku;
     NumberPicker numberpicker;
+    int hariku, tahunku, bulanserver;
     Spinner kadobuatsiapa, acarapa;
     private Calendar date;
     TextView tahun,hari, bulan;
     HintArrayAdapter hintAdapter, hintadapterku;
     String[] kadolist;
+    Boolean bulanbool=false, haribool=false, tahunbool=false;
     Button carikado;
 
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -87,7 +88,6 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
 
         getkategori();
         getAcara();
-        getOngkir();
 
         tahun.setOnClickListener(view1 -> showdateyearpicker());
 
@@ -98,17 +98,6 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
                 startActivity(intent);
         });
         return root;
-    }
-
-    private void getOngkir() {
-        OkHttpClient client = new OkHttpClient();
-
-        okhttp3.Request request = new okhttp3.Request.Builder()
-                .url("https://api.rajaongkir.com/starter/city?id=39&province=5")
-                .get()
-                .addHeader("key", "31c10f03935767476539d6e3b115ee97")
-                .build();
-
     }
 
     private void showdatemonthpicker(){
@@ -154,23 +143,18 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
                     bulan.setText("December");
                     break;
             }
-        });
-        DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(),android.R.style.Theme_Holo_Dialog, dateSetListener, currentdate.get(Calendar.YEAR), currentdate.get(Calendar.MONTH), currentdate.get(Calendar.DAY_OF_MONTH));
-        ((ViewGroup) datePickerDialog.getDatePicker()).findViewById(Resources.getSystem().getIdentifier("year", "id", "android")).setVisibility(View.GONE);
-        ((ViewGroup) datePickerDialog.getDatePicker()).findViewById(Resources.getSystem().getIdentifier("day", "id", "android")).setVisibility(View.GONE);
-        datePickerDialog.show();
-    }
-
-    private void showdatedaypicker() {
-        final Calendar currentdate = Calendar.getInstance();
-        date = Calendar.getInstance();
-        DatePickerDialog.OnDateSetListener dateSetListener = (datePicker, year, month, day) -> {
-            Log.d("asda", "showdateyearpicker: " + year);
-            hari.setText(String.valueOf(day));
+            haribool=false;
+            bulanbool=false;
         };
         DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(),android.R.style.Theme_Holo_Dialog, dateSetListener, currentdate.get(Calendar.YEAR), currentdate.get(Calendar.MONTH), currentdate.get(Calendar.DAY_OF_MONTH));
+        if (bulanbool){
+            ((ViewGroup) datePickerDialog.getDatePicker()).findViewById(Resources.getSystem().getIdentifier("month", "id", "android")).setVisibility(View.VISIBLE);
+            ((ViewGroup) datePickerDialog.getDatePicker()).findViewById(Resources.getSystem().getIdentifier("day", "id", "android")).setVisibility(View.GONE);
+        }else if (haribool){
+            ((ViewGroup) datePickerDialog.getDatePicker()).findViewById(Resources.getSystem().getIdentifier("month", "id", "android")).setVisibility(View.GONE);
+            ((ViewGroup) datePickerDialog.getDatePicker()).findViewById(Resources.getSystem().getIdentifier("day", "id", "android")).setVisibility(View.VISIBLE);
+        }
         ((ViewGroup) datePickerDialog.getDatePicker()).findViewById(Resources.getSystem().getIdentifier("year", "id", "android")).setVisibility(View.GONE);
-        ((ViewGroup) datePickerDialog.getDatePicker()).findViewById(Resources.getSystem().getIdentifier("month", "id", "android")).setVisibility(View.GONE);
         datePickerDialog.show();
     }
 
@@ -180,6 +164,7 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
         DatePickerDialog.OnDateSetListener dateSetListener = (datePicker, year, month, day) -> {
             Log.d("asda", "showdateyearpicker: " + year);
             tahun.setText(String.valueOf(year));
+            tahunku = year;
         };
         DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(),android.R.style.Theme_Holo_Dialog, dateSetListener, currentdate.get(Calendar.YEAR), currentdate.get(Calendar.MONTH), currentdate.get(Calendar.DAY_OF_MONTH));
         ((ViewGroup) datePickerDialog.getDatePicker()).findViewById(Resources.getSystem().getIdentifier("day", "id", "android")).setVisibility(View.GONE);
@@ -271,13 +256,7 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
                     e.printStackTrace();
                 }
             }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.d("onerror", "onErrorResponse: " + error.getMessage());
-
-            }
-        });
+        }, error -> Log.d("onerror", "onErrorResponse: " + error.getMessage()));
         RequestQueue queue = Volley.newRequestQueue(getContext());
         Log.d("queue", "getkategori: " + objectRequest + queue);
         queue.add(objectRequest);
@@ -305,13 +284,32 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
                     e.printStackTrace();
                 }
             }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.d("acarakuk", "onResponse: " + error.getMessage());
+        }, error -> Log.d("acarakuk", "onResponse: " + error.getMessage()));
+        RequestQueue queue = Volley.newRequestQueue(getContext());
+        queue.add(objectRequest);
+    }
 
+    private void getRange(){
+        JsonObjectRequest objectRequest = new JsonObjectRequest(Request.Method.GET, "http://192.168.3.156/gify/api/range.php", null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    JSONArray array = response.getJSONArray("YukNgaji");
+                    for (int a = 0; a < array.length(); a++){
+                        JSONObject object = array.getJSONObject(a);
+                        String nama = object.getString("nama");
+                        int hari = object.getInt("hari");
+                        int bulan = object.getInt("bulan");
+                        int hariend = object.getInt("hariend");
+                        int bulanend = object.getInt("bulanend");
+                        if (bulanserver > bulan && );
+                    }
+                } catch (JSONException e) {
+                    Log.d("rangeku", "onResponse: " );
+                    e.printStackTrace();
+                }
             }
-        });
+        }, error -> Log.d("rangeerror", "onResponse: " + error.getMessage()));
         RequestQueue queue = Volley.newRequestQueue(getContext());
         queue.add(objectRequest);
     }
