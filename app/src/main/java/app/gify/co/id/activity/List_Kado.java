@@ -6,8 +6,12 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import app.gify.co.id.R;
+import app.gify.co.id.adapter.AdapterListKado;
 
 public class List_Kado extends AppCompatActivity {
+
+    String kado, acara, range;
+    AdapterListKado adapterListKado;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

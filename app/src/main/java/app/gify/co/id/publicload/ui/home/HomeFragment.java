@@ -60,7 +60,7 @@ import app.gify.co.id.activity.List_Kado;
 
 public class HomeFragment extends Fragment implements AdapterView.OnItemSelectedListener {
     private HomeViewModel homeViewModel;
-    String kadobuatsiapaku, acaraapaku, bulanku;
+    String kadobuatsiapaku, acaraapaku, bulanku, namas;
     NumberPicker numberpicker;
     int hariku, tahunku, bulanserver;
     Spinner kadobuatsiapa, acarapa;
@@ -83,6 +83,12 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
         carikado=root.findViewById(R.id.cariKado);
         hintAdapter = new HintArrayAdapter<String>(getContext(), 0);
         hintadapterku = new HintArrayAdapter<String>(getContext(), 0);
+        hintAdapter.add("hint");
+        hintadapterku.add("hint");
+        hari.setOnClickListener(view1 -> {
+            haribool = true;
+            showdatedaypicker();
+        });
 
         hari.setOnClickListener(view1 -> showdatedaypicker());
 
@@ -91,57 +97,85 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
 
         tahun.setOnClickListener(view1 -> showdateyearpicker());
 
-        bulan.setOnClickListener(view -> showdatemonthpicker());
+        bulan.setOnClickListener(view -> showdatedaypicker());
 
         carikado.setOnClickListener(view1 ->  {
+            kadobuatsiapaku = String.valueOf(kadobuatsiapa.getSelectedItem());
+            acaraapaku = String.valueOf(acarapa.getSelectedItem());
+            Log.d("logdku", "onCreateView: " + hariku + " s " + bulanku + " s " + tahunku + " s " + kadobuatsiapaku + " s " + acaraapaku);
+            if (hariku == 0 || bulanku == null || tahunku == 0 || kadobuatsiapaku.equals("hint") || acaraapaku.equals("hint")){
+                Toast.makeText(getContext(), "Isi Terlebih dahulu yang kosong", Toast.LENGTH_SHORT).show();
+            }else {
+                getRange();
                 Intent intent = new Intent(getContext(), List_Kado.class);
+                intent.putExtra("range", namas);
+                intent.putExtra("acara", acaraapaku);
+                intent.putExtra("buat", kadobuatsiapaku);
                 startActivity(intent);
+            }
         });
         return root;
     }
 
-    private void showdatemonthpicker(){
+    private void showdatedaypicker() {
         final Calendar currentdate = Calendar.getInstance();
         date = Calendar.getInstance();
-        DatePickerDialog.OnDateSetListener dateSetListener = ((datePicker, year, month, day) -> {
-            Log.d("monthasda", "showdatemonthpicker: " + month);
-            switch (month){
-                case 0:
-                    bulan.setText("Januari");
-                    break;
-                case 1:
-                    bulan.setText("Februari");
-                    break;
-                case 2:
-                    bulan.setText("Maret");
-                    break;
-                case 3:
-                    bulan.setText("April");
-                    break;
-                case 4:
-                    bulan.setText("Mei");
-                    break;
-                case 5:
-                    bulan.setText("Juni");
-                    break;
-                case 6:
-                    bulan.setText("Juli");
-                    break;
-                case 7:
-                    bulan.setText("Agustus");
-                    break;
-                case 8:
-                    bulan.setText("September");
-                    break;
-                case 9:
-                    bulan.setText("October");
-                    break;
-                case 10:
-                    bulan.setText("November");
-                    break;
-                case 11:
-                    bulan.setText("December");
-                    break;
+        DatePickerDialog.OnDateSetListener dateSetListener = (datePicker, year, month, day) -> {
+            if (bulanbool){
+                bulanserver = month;
+                switch (month) {
+                    case 0:
+                        bulan.setText("Januari");
+                        bulanku = "Januari";
+                        break;
+                    case 1:
+                        bulan.setText("Februari");
+                        bulanku = "Februari";
+                        break;
+                    case 2:
+                        bulan.setText("Maret");
+                        bulanku = "Maret";
+                        break;
+                    case 3:
+                        bulan.setText("April");
+                        bulanku = "April";
+                        break;
+                    case 4:
+                        bulan.setText("Mei");
+                        bulanku = "Mei";
+                        break;
+                    case 5:
+                        bulan.setText("Juni");
+                        bulanku = "Juni";
+                        break;
+                    case 6:
+                        bulan.setText("Juli");
+                        bulanku = "Juli";
+                        break;
+                    case 7:
+                        bulan.setText("Agustus");
+                        bulanku = "Agustus";
+                        break;
+                    case 8:
+                        bulan.setText("September");
+                        bulanku = "September";
+                        break;
+                    case 9:
+                        bulan.setText("October");
+                        bulanku = "October";
+                        break;
+                    case 10:
+                        bulan.setText("November");
+                        bulanku = "November";
+                        break;
+                    case 11:
+                        bulan.setText("Desember");
+                        bulanku = "Desember";
+                        break;
+                }
+            }else if (haribool){
+                hari.setText(String.valueOf(day));
+                hariku = day;
             }
             haribool=false;
             bulanbool=false;
@@ -297,12 +331,37 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
                     JSONArray array = response.getJSONArray("YukNgaji");
                     for (int a = 0; a < array.length(); a++){
                         JSONObject object = array.getJSONObject(a);
-                        String nama = object.getString("nama");
                         int hari = object.getInt("hari");
                         int bulan = object.getInt("bulan");
                         int hariend = object.getInt("hariend");
                         int bulanend = object.getInt("bulanend");
-                        if (bulanserver > bulan && );
+                        if (bulanserver == 11 ){
+                            Log.d("bulanserversamadengan11", "onResponse: ");
+                            if (bulan == 11){
+                                Log.d("bulan11", "onResponse: ");
+                                if (hariku >= hari){
+                                    Log.d("hari1", "onResponse: ");
+                                    if (0 <= bulanend){
+                                        namas = object.getString("nama");
+                                        Log.d("namakuobjek", "onResponse: " + namas);
+                                    }
+                                }
+                            }
+                        }else if (bulanserver >= 0){
+                            if (bulanserver == bulan){
+                                Log.d("bulan", "onResponse: ");
+                                if (hariku >= hari){
+                                    namas = object.getString("nama");
+                                    Log.d("hariku", "onResponse: " + namas);
+                                }
+                            }else if (bulanserver == bulanend){
+                                Log.d("bulanku", "onResponse: ");
+                                if (hariku <= hariend){
+                                    namas = object.getString("nama");
+                                    Log.d("hari", "onResponse: " + namas);
+                                }
+                            }
+                        }
                     }
                 } catch (JSONException e) {
                     Log.d("rangeku", "onResponse: " );
