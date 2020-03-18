@@ -354,7 +354,6 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
                         int bulan = object.getInt("bulan");
                         int hariend = object.getInt("hariend");
                         int bulanend = object.getInt("bulanend");
-                        if (bulanserver > bulan && );
                     }
                 } catch (JSONException e) {
                     Log.d("rangeku", "onResponse: " );
