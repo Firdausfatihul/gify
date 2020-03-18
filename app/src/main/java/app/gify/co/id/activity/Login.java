@@ -38,7 +38,7 @@ public class Login extends AppCompatActivity {
     FirebaseAuth mAuth;
     EditText Email, Password;
     TextView lupaSandi;
-    String email, password, userID;
+    String email, password, userID, Uemail;
     Button Masuk, Daftar;
     ProgressDialog progressBar;
     SharedPreferences sharedPreferences;
@@ -146,19 +146,19 @@ public class Login extends AppCompatActivity {
         DatabaseReference mDb = mDatabase.getReference();
         String user = mAuth.getCurrentUser().getUid();
 
-        mDb.child("Users").child(user).child("password").setValue(password);
-
         //First Approach
         mDb.child("Users").child(user).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 userID = String.valueOf(dataSnapshot.child("nama").getValue());
+                Uemail = String.valueOf(dataSnapshot.child("email").getValue());
+                mDb.child("Users").child(user).child("password").setValue(password);
                 Log.d("namaku", "onDataChange: " + userID);
                 Intent mainIntent = new Intent(getApplication(), MainActivity.class);
                 sharedPreferences = PreferenceManager.getDefaultSharedPreferences(Login.this);
                 sessionManager.checkLogin(true);
                 editor = sharedPreferences.edit();
-                editor.putString("email", email);
+                editor.putString("email", Uemail);
                 editor.putString("nama", userID);
                 editor.apply();
                 startActivity(mainIntent);
@@ -170,6 +170,5 @@ public class Login extends AppCompatActivity {
 
             }
         });
-
     }
 }
