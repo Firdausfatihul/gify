@@ -2,13 +2,22 @@ package app.gify.co.id.modal;
 
 public class MadolKado {
     private int harga;
-    private String nama, kode, gambar;
+    private String nama, kode, gambar, desc;
 
-    public MadolKado(String gambar, int harga, String nama, String kode) {
+    public MadolKado(String gambar, int harga, String nama, String kode, String desc) {
         this.gambar = gambar;
         this.harga = harga;
         this.nama = nama;
         this.kode = kode;
+        this.desc = desc;
+    }
+
+    public String getDesc() {
+        return desc;
+    }
+
+    public void setDesc(String desc) {
+        this.desc = desc;
     }
 
     public String getGambar() {

@@ -1,10 +1,12 @@
 package app.gify.co.id.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -16,6 +18,7 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 
 import app.gify.co.id.R;
+import app.gify.co.id.activity.DetailKado;
 import app.gify.co.id.modal.MadolCart;
 import app.gify.co.id.modal.MadolKado;
 
@@ -34,9 +37,11 @@ public class AdapterListKado extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
         ImageView photo, favorit;
         TextView harga, nama;
+        LinearLayout linear;
 
         public MyKado(@NonNull View itemView) {
             super(itemView);
+            linear = itemView.findViewById(R.id.linear);
             photo = itemView.findViewById(R.id.fovoriteAdapter);
             favorit = itemView.findViewById(R.id.favoritbarang);
             harga = itemView.findViewById(R.id.hargaBarangFavoritAdapter);
@@ -60,6 +65,15 @@ public class AdapterListKado extends RecyclerView.Adapter<RecyclerView.ViewHolde
         }else {
             Picasso.get().load(kados.get(position).getGambar()).into(((MyKado)holder).photo);
         }
+        ((MyKado)holder).linear.setOnClickListener(view1 -> {
+            Intent intent = new Intent(context.getApplicationContext(), DetailKado.class);
+            intent.putExtra("gambar", kados.get(position).getGambar());
+            intent.putExtra("desc", kados.get(position).getDesc());
+            intent.putExtra("harga", kados.get(position).getHarga());
+            intent.putExtra("nama", kados.get(position).getNama() + "(" + kados.get(position).getKode() + ")");
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            context.startActivity(intent);
+        });
     }
 
     @Override
