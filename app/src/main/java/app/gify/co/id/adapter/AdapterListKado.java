@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -55,9 +56,9 @@ public class AdapterListKado extends RecyclerView.Adapter<RecyclerView.ViewHolde
         ((MyKado)holder).nama.setText(kados.get(position).getNama()+"("+kados.get(position).getKode()+")");
         ((MyKado)holder).harga.setText("Rp. " + kados.get(position).getHarga());
         if (kados.get(position).getGambar().isEmpty()){
-
+            Toast.makeText(context, "tydac ada gambar", Toast.LENGTH_SHORT).show();
         }else {
-            Picasso.
+            Picasso.get().load(kados.get(position).getGambar()).into(((MyKado)holder).photo);
         }
     }
 

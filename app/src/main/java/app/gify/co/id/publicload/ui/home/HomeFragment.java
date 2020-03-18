@@ -263,7 +263,7 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
     }
 
     public void getkategori(){
-        JsonObjectRequest objectRequest = new JsonObjectRequest(Request.Method.GET, "http://192.168.43.19/gify/api/kado.php", null, response -> {
+        JsonObjectRequest objectRequest = new JsonObjectRequest(Request.Method.GET, "http://192.168.7.2/gify/api/kado.php", null, response -> {
             Log.d("bambang", "onResponse: " + response.toString());
             try {
                 JSONArray array = response.getJSONArray("YukNgaji");
@@ -293,7 +293,7 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
     }
 
     private void getAcara(){
-        JsonObjectRequest objectRequest = new JsonObjectRequest(Request.Method.GET, "http://192.168.43.19/gify/api/acara.php", null, response -> {
+        JsonObjectRequest objectRequest = new JsonObjectRequest(Request.Method.GET, "http://192.168.7.2/gify/api/acara.php", null, response -> {
             try {
                 JSONArray array = response.getJSONArray("YukNgaji");
                 for (int a = 0; a < array.length(); a++){
@@ -317,7 +317,7 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
     }
 
     private void getRange(){
-        JsonObjectRequest objectRequest = new JsonObjectRequest(Request.Method.GET, "http://192.168.43.19/gify/api/range.php", null, new Response.Listener<JSONObject>() {
+        JsonObjectRequest objectRequest = new JsonObjectRequest(Request.Method.GET, "http://192.168.7.2/gify/api/range.php", null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 try {
