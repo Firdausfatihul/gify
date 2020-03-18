@@ -22,6 +22,7 @@
         <activity android:name=".activity.Register"/>
         <activity android:name=".activity.MainActivity"/>
         <activity android:name=".activity.Pengaturan"/>
+        <activity android:name=".activity.LupaSandi"/>
     </application>
 
 </manifest>

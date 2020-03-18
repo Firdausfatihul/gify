@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.os.PersistableBundle;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -36,7 +37,8 @@ public class Login extends AppCompatActivity {
 
     FirebaseAuth mAuth;
     EditText Email, Password;
-    String email, password, userID;
+    TextView lupaSandi;
+    String email, password, userID, Uemail;
     Button Masuk, Daftar;
     ProgressDialog progressBar;
     SharedPreferences sharedPreferences;
@@ -56,6 +58,7 @@ public class Login extends AppCompatActivity {
         Password = findViewById(R.id.passwordLogin);
         Masuk = findViewById(R.id.masuk);
         Daftar = findViewById(R.id.daftar);
+        lupaSandi = findViewById(R.id.lupaSandi);
 
         Daftar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,6 +79,14 @@ public class Login extends AppCompatActivity {
             startActivity(mainIntent);
             finish();
         }
+
+        lupaSandi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplication(), LupaSandi.class);
+                startActivity(intent);
+            }
+        });
 
         Masuk.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -111,6 +122,8 @@ public class Login extends AppCompatActivity {
                                                 }
                                             }
                                         });
+                                        Toast.makeText(Login.this, "Selamat Datang!", Toast.LENGTH_SHORT).show();
+                                        SendUserToMainActivity();
                                         Masuk.setVisibility(View.VISIBLE);
                                         progressBar.dismiss();
 
@@ -138,12 +151,14 @@ public class Login extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 userID = String.valueOf(dataSnapshot.child("nama").getValue());
+                Uemail = String.valueOf(dataSnapshot.child("email").getValue());
+                mDb.child("Users").child(user).child("password").setValue(password);
                 Log.d("namaku", "onDataChange: " + userID);
                 Intent mainIntent = new Intent(getApplication(), MainActivity.class);
                 sharedPreferences = PreferenceManager.getDefaultSharedPreferences(Login.this);
                 sessionManager.checkLogin(true);
                 editor = sharedPreferences.edit();
-                editor.putString("email", email);
+                editor.putString("email", Uemail);
                 editor.putString("nama", userID);
                 editor.apply();
                 startActivity(mainIntent);
@@ -155,6 +170,5 @@ public class Login extends AppCompatActivity {
 
             }
         });
-
     }
 }
