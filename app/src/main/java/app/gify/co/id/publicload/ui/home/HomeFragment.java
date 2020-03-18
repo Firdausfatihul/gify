@@ -60,9 +60,9 @@ import app.gify.co.id.activity.List_Kado;
 
 public class HomeFragment extends Fragment implements AdapterView.OnItemSelectedListener {
     private HomeViewModel homeViewModel;
-    String kadobuatsiapaku, acaraapaku, bulanku, namas;
+    String kadobuatsiapaku, acaraapaku, bulanku;
     NumberPicker numberpicker;
-    int hariku, tahunku, bulanserver;
+    int hariku, tahunku, bulanserver, namas, acaraint, kadoint;
     Spinner kadobuatsiapa, acarapa;
     private Calendar date;
     TextView tahun,hari, bulan;
@@ -90,28 +90,27 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
             showdatedaypicker();
         });
 
-        hari.setOnClickListener(view1 -> showdatedaypicker());
-
         getkategori();
         getAcara();
 
         tahun.setOnClickListener(view1 -> showdateyearpicker());
 
-        bulan.setOnClickListener(view -> showdatedaypicker());
+        bulan.setOnClickListener(view -> {
+            bulanbool = true;
+            showdatedaypicker();
+        });
 
         carikado.setOnClickListener(view1 ->  {
             kadobuatsiapaku = String.valueOf(kadobuatsiapa.getSelectedItem());
             acaraapaku = String.valueOf(acarapa.getSelectedItem());
+            acaraint = acarapa.getSelectedItemPosition();
+            kadoint = kadobuatsiapa.getSelectedItemPosition();
             Log.d("logdku", "onCreateView: " + hariku + " s " + bulanku + " s " + tahunku + " s " + kadobuatsiapaku + " s " + acaraapaku);
             if (hariku == 0 || bulanku == null || tahunku == 0 || kadobuatsiapaku.equals("hint") || acaraapaku.equals("hint")){
                 Toast.makeText(getContext(), "Isi Terlebih dahulu yang kosong", Toast.LENGTH_SHORT).show();
             }else {
                 getRange();
-                Intent intent = new Intent(getContext(), List_Kado.class);
-                intent.putExtra("range", namas);
-                intent.putExtra("acara", acaraapaku);
-                intent.putExtra("buat", kadobuatsiapaku);
-                startActivity(intent);
+
             }
         });
         return root;
@@ -264,31 +263,28 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
     }
 
     public void getkategori(){
-        JsonObjectRequest objectRequest = new JsonObjectRequest(Request.Method.GET, "http://192.168.3.156/gify/api/kado.php", null, new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-                Log.d("bambang", "onResponse: " + response.toString());
-                try {
-                    JSONArray array = response.getJSONArray("YukNgaji");
-                    Log.d("arraku", "onResponse: " + array.length());
-                    for (int a = 0;a < array.length() ; a++){
+        JsonObjectRequest objectRequest = new JsonObjectRequest(Request.Method.GET, "http://192.168.43.19/gify/api/kado.php", null, response -> {
+            Log.d("bambang", "onResponse: " + response.toString());
+            try {
+                JSONArray array = response.getJSONArray("YukNgaji");
+                Log.d("arraku", "onResponse: " + array.length());
+                for (int a = 0;a < array.length() ; a++){
 
-                        JSONObject object = array.getJSONObject(a);
-                        String tes = object.getString("id");
-                        String ku = object.getString("sub_category");
-                        hintAdapter.add(ku);
-                        kadobuatsiapa.setAdapter(hintAdapter);
+                    JSONObject object = array.getJSONObject(a);
+                    String tes = object.getString("id");
+                    String ku = object.getString("sub_category");
+                    hintAdapter.add(ku);
+                    kadobuatsiapa.setAdapter(hintAdapter);
 
-                        //spinner1.setSelection(0); //display hint. Actually you can ignore it, because the default is already 0
-                        kadobuatsiapa.setSelection(0, false); //use this if don't want to onItemClick called for the hint
+                    //spinner1.setSelection(0); //display hint. Actually you can ignore it, because the default is already 0
+                    kadobuatsiapa.setSelection(0, false); //use this if don't want to onItemClick called for the hint
 
-                        kadobuatsiapa.setOnItemSelectedListener(HomeFragment.this);
-                        Log.d("makansamaale", "onResponse: "+tes+" "+ku);
-                    }
-                } catch (JSONException e) {
-                    Log.d("ejson", "onResponse: " + e.getMessage());
-                    e.printStackTrace();
+                    kadobuatsiapa.setOnItemSelectedListener(HomeFragment.this);
+                    Log.d("makansamaale", "onResponse: "+tes+" "+ku);
                 }
+            } catch (JSONException e) {
+                Log.d("ejson", "onResponse: " + e.getMessage());
+                e.printStackTrace();
             }
         }, error -> Log.d("onerror", "onErrorResponse: " + error.getMessage()));
         RequestQueue queue = Volley.newRequestQueue(getContext());
@@ -297,26 +293,23 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
     }
 
     private void getAcara(){
-        JsonObjectRequest objectRequest = new JsonObjectRequest(Request.Method.GET, "http://192.168.3.156/gify/api/acara.php", null, new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-                try {
-                    JSONArray array = response.getJSONArray("YukNgaji");
-                    for (int a = 0; a < array.length(); a++){
-                        JSONObject object = array.getJSONObject(a);
-                        String acara = object.getString("untuk_acara");
-                        Log.d("acaraku", "onResponse: " + acara);
-                        hintadapterku.add(acara);
+        JsonObjectRequest objectRequest = new JsonObjectRequest(Request.Method.GET, "http://192.168.43.19/gify/api/acara.php", null, response -> {
+            try {
+                JSONArray array = response.getJSONArray("YukNgaji");
+                for (int a = 0; a < array.length(); a++){
+                    JSONObject object = array.getJSONObject(a);
+                    String acara = object.getString("untuk_acara");
+                    Log.d("acaraku", "onResponse: " + acara);
+                    hintadapterku.add(acara);
 
-                        acarapa.setAdapter(hintadapterku);
+                    acarapa.setAdapter(hintadapterku);
 
-                        acarapa.setSelection(0, false);
+                    acarapa.setSelection(0, false);
 
-                    }
-                } catch (JSONException e) {
-                    Log.d("acarakus", "onResponse: " );
-                    e.printStackTrace();
                 }
+            } catch (JSONException e) {
+                Log.d("acarakus", "onResponse: " );
+                e.printStackTrace();
             }
         }, error -> Log.d("acarakuk", "onResponse: " + error.getMessage()));
         RequestQueue queue = Volley.newRequestQueue(getContext());
@@ -324,7 +317,7 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
     }
 
     private void getRange(){
-        JsonObjectRequest objectRequest = new JsonObjectRequest(Request.Method.GET, "http://192.168.3.156/gify/api/range.php", null, new Response.Listener<JSONObject>() {
+        JsonObjectRequest objectRequest = new JsonObjectRequest(Request.Method.GET, "http://192.168.43.19/gify/api/range.php", null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 try {
@@ -342,8 +335,13 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
                                 if (hariku >= hari){
                                     Log.d("hari1", "onResponse: ");
                                     if (0 <= bulanend){
-                                        namas = object.getString("nama");
+                                        namas = object.getInt("id");
                                         Log.d("namakuobjek", "onResponse: " + namas);
+                                        Intent intent = new Intent(getContext(), List_Kado.class);
+                                        intent.putExtra("range", namas);
+                                        intent.putExtra("acara", acaraint);
+                                        intent.putExtra("buat", kadoint);
+                                        startActivity(intent);
                                     }
                                 }
                             }
@@ -351,14 +349,24 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
                             if (bulanserver == bulan){
                                 Log.d("bulan", "onResponse: ");
                                 if (hariku >= hari){
-                                    namas = object.getString("nama");
+                                    namas = object.getInt("id");
                                     Log.d("hariku", "onResponse: " + namas);
+                                    Intent intent = new Intent(getContext(), List_Kado.class);
+                                    intent.putExtra("range", namas);
+                                    intent.putExtra("acara", acaraint);
+                                    intent.putExtra("buat", kadoint);
+                                    startActivity(intent);
                                 }
                             }else if (bulanserver == bulanend){
                                 Log.d("bulanku", "onResponse: ");
                                 if (hariku <= hariend){
-                                    namas = object.getString("nama");
+                                    namas = object.getInt("id");
                                     Log.d("hari", "onResponse: " + namas);
+                                    Intent intent = new Intent(getContext(), List_Kado.class);
+                                    intent.putExtra("range", namas);
+                                    intent.putExtra("acara", acaraint);
+                                    intent.putExtra("buat", kadoint);
+                                    startActivity(intent);
                                 }
                             }
                         }
