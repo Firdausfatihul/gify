@@ -146,6 +146,8 @@ public class Login extends AppCompatActivity {
         DatabaseReference mDb = mDatabase.getReference();
         String user = mAuth.getCurrentUser().getUid();
 
+        mDb.child("Users").child(user).child("password").setValue(password);
+
         //First Approach
         mDb.child("Users").child(user).addValueEventListener(new ValueEventListener() {
             @Override
