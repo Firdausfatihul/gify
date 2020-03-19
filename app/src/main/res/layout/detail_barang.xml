@@ -95,6 +95,7 @@
                     android:layout_height="wrap_content">
 
                     <com.synnapps.carouselview.CarouselView
+                        android:id="@+id/carousel"
                         app:autoPlay="false"
                         android:layout_width="match_parent"
                         android:layout_height="190dp"/>
@@ -120,6 +121,7 @@
                     android:layout_height="wrap_content">
 
                     <TextView
+                        android:id="@+id/namadetail"
                         android:text="Dompet Klulit Moder Pria Inficlo (SPP509)"
                         android:textStyle="bold"
                         android:textSize="19dp"
@@ -164,6 +166,7 @@
                     android:layout_height="wrap_content">
 
                     <TextView
+                        android:id="@+id/hargadetail"
                         android:text="Rp 120.000,;"
                         android:textColor="#fd672c"
                         android:textStyle="bold"
@@ -172,6 +175,7 @@
                         android:layout_height="wrap_content"/>
 
                     <TextView
+                        android:id="@+id/descdetail"
                         android:text="Produk Terbaru dari Barnd infclo dibuad dengan bahan yang nyaman digunakan, kualitas terbaik, desain trendy, update dan tidak pasaran. Membuat tampil percaya diri."
                         android:layout_marginTop="10dp"
                         android:textStyle="bold"
@@ -185,6 +189,7 @@
             </androidx.cardview.widget.CardView>
 
             <Button
+                android:id="@+id/belikadodetail"
                 android:text="BELI KADO"
                 android:background="#fd672c"
                 android:textColor="#fff"

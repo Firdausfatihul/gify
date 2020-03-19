@@ -25,7 +25,10 @@ import java.util.ArrayList;
 
 import app.gify.co.id.R;
 import app.gify.co.id.adapter.AdapterListKado;
+import app.gify.co.id.baseurl.UrlJson;
 import app.gify.co.id.modal.MadolKado;
+
+import static app.gify.co.id.baseurl.UrlJson.GETBARANG;
 
 public class List_Kado extends AppCompatActivity {
 
@@ -55,7 +58,7 @@ public class List_Kado extends AppCompatActivity {
     }
 
     private void getBarang() {
-        JsonObjectRequest objectRequest = new JsonObjectRequest(Request.Method.GET, "http://192.168.7.6/gify/api/barangkado.php", null, new Response.Listener<JSONObject>() {
+        JsonObjectRequest objectRequest = new JsonObjectRequest(Request.Method.GET, GETBARANG, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 try {
@@ -71,11 +74,13 @@ public class List_Kado extends AppCompatActivity {
                             int harga = object.getInt("harga");
                             String gambar = object.getString("photo");
                             String tipe = object.getString("kode_barang");
-                            MadolKado madolKado = new MadolKado(gambar, harga, nama, tipe);
+                            String desc = object.getString("deskripsi");
+                            String idbarang = object.getString("id");
+                            MadolKado madolKado = new MadolKado(gambar, harga, nama, tipe, desc, idbarang);
                             madolKados.add(madolKado);
                             adapterListKado = new AdapterListKado(madolKados, getApplicationContext());
                             recycler.setAdapter(adapterListKado);
-                            Log.d("listkadoharga", "onResponse: " + harga + tipe);
+                            Log.d("listkadoharga", "onResponse: " + harga + tipe + " s " + idbarang);
                         }
 
                     }

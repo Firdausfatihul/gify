@@ -29,6 +29,8 @@
             <TextView
                 android:text="Dompet Kulit Modern Pria"
                 android:textSize="19dp"
+                android:textColor="#868484"
+
                 android:textStyle="bold"
                 android:maxLines="1"
                 android:singleLine="true"
@@ -53,6 +55,7 @@
 
                 <TextView
                     android:text="Quantity"
+                    android:textColor="#868484"
                     android:layout_gravity="center"
                     android:gravity="center_vertical"
                     android:textStyle="bold"
@@ -71,6 +74,7 @@
                 <TextView
                     android:text="1"
                     android:textSize="30dp"
+                    android:textColor="#868484"
                     android:textStyle="bold"
                     android:layout_gravity="center"
                     android:gravity="center"
@@ -106,6 +110,7 @@
                     android:textStyle="bold"
                     android:textSize="19dp"
                     android:text="Subtotal"
+                    android:textColor="#868484"
                     android:layout_weight="50"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"/>

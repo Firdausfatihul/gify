@@ -5,6 +5,7 @@ import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -22,6 +23,11 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -36,8 +42,13 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Locale;
+import java.util.Map;
 
 import app.gify.co.id.R;
+
+import static app.gify.co.id.baseurl.UrlJson.REGISTER;
 
 public class Register extends AppCompatActivity {
 
@@ -127,7 +138,7 @@ public class Register extends AppCompatActivity {
                             }
                             else {
                                 String message = task.getException().toString();
-                                Toast.makeText(Register.this, "Gagal Register", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(Register.this, "Gagal Register" + message, Toast.LENGTH_SHORT).show();
                                 loadingBar.dismiss();
                             }
                         }
@@ -145,7 +156,7 @@ public class Register extends AppCompatActivity {
                 String Lpassword = String.valueOf(dataSnapshot.child("password").getValue());
                 String Ltanggal = String.valueOf(dataSnapshot.child("tanggal").getValue());
                 String LID = dataSnapshot.getKey();
-
+                registertodatabase(LID, Lnama,Ltanggal, Lemail, LnoHp, Lpassword);
                Log.d("cobalah ",LID + " " + "Nama: " + Lnama + " " + "Email: " + Lemail + " " + "noHp: " + LnoHp + " " + "Password: " + Lpassword + " " + "Tanggal: " + Ltanggal);
             }
 
@@ -154,36 +165,68 @@ public class Register extends AppCompatActivity {
 
             }
         });
-        Intent loginIntent = new Intent(getApplication(), Login.class);
-        startActivity(loginIntent);
-        finish();
     }
 
     private void showDateTimePicker() {
         final Calendar currentdate = Calendar.getInstance();
         date = Calendar.getInstance();
 
-        DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
-            @RequiresApi(api = Build.VERSION_CODES.N)
-            @Override
-            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-                selectedDate = new StringBuilder().append(day)
-                        .append("-").append(month + 1).append("-").append(year)
-                        .append("");
-                SimpleDateFormat format = new SimpleDateFormat("EEEE, dd - MMMM - yyyy");
-                SimpleDateFormat currentDateformat = new SimpleDateFormat("dd-MM-yyyy");
-                try {
-                    Date dates = currentDateformat.parse(String.valueOf(selectedDate));
-                    String tanggal = format.format(dates);
-                    TanggalLahir.setText(tanggal);
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
-
+        DatePickerDialog.OnDateSetListener dateSetListener = (datePicker, year, month, day) -> {
+            selectedDate = new StringBuilder().append(day)
+                    .append("-").append(month + 1).append("-").append(year)
+                    .append("");
+            SimpleDateFormat format = new SimpleDateFormat("EEEE, dd - MMMM - yyyy");
+            SimpleDateFormat currentDateformat = new SimpleDateFormat("dd-MM-yyyy");
+            try {
+                Date dates = currentDateformat.parse(String.valueOf(selectedDate));
+                String tanggal = format.format(dates);
+                TanggalLahir.setText(tanggal);
+            } catch (ParseException e) {
+                e.printStackTrace();
             }
+
         };
         DatePickerDialog datePickerDialog = new DatePickerDialog(this, dateSetListener, currentdate.get(Calendar.YEAR), currentdate.get(Calendar.MONTH), currentdate.get(Calendar.DAY_OF_MONTH));
         datePickerDialog.getDatePicker().setMaxDate(System.currentTimeMillis());
         datePickerDialog.show();
+    }
+
+    private void registertodatabase(final String id_tetap, final String nama, final String ttl, final String email, final String nohp, final String passwords){
+        StringRequest request = new StringRequest(Request.Method.POST, REGISTER, response -> {
+            try {
+                Log.d("registertodatabase", "registertodatabase: " + response);
+                if (response.equals("sama")){
+                    Toast.makeText(this, "Email Sudah digunakan", Toast.LENGTH_SHORT).show();
+                }else if (response.equals("bisa")){
+                    Intent intent = new Intent(getApplicationContext(), Login.class);
+                    Log.d("akuss", "berhasil");
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
+                }
+            }catch (Exception e){
+                e.getMessage();
+                Toast.makeText(Register.this, "isi semua kolom", Toast.LENGTH_SHORT).show();
+                Log.d("aku", e.getMessage() + "");
+            }
+        }, error -> {
+            error.printStackTrace();
+            error.getMessage();
+            Toast.makeText(Register.this, "Error", Toast.LENGTH_SHORT).show();
+            Log.d("aku", error.getMessage() + "");
+        }){
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+                params.put("id_tetap", id_tetap);
+                params.put("email", email);
+                params.put("nama", nama);
+                params.put("ttl", ttl);
+                params.put("passwords", passwords);
+                params.put("nohp", nohp);
+                return params;
+            }
+        };
+        RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
+        queue.add(request);
     }
 }
