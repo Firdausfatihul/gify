@@ -75,7 +75,8 @@ public class Login extends AppCompatActivity {
             Intent mainIntent = new Intent(getApplication(), MainActivity.class);
             sharedPreferences = PreferenceManager.getDefaultSharedPreferences(Login.this);
             String emailKu = sharedPreferences.getString("email", "");
-            Log.d("emailLoginSession", emailKu);
+            String uidku = sharedPreferences.getString("uid", "");
+            Log.d("emailLoginSession", emailKu + " s " + uidku);
             startActivity(mainIntent);
             finish();
         }
@@ -118,7 +119,7 @@ public class Login extends AppCompatActivity {
                                                     Toast.makeText(Login.this, "Selamat Datang!", Toast.LENGTH_SHORT).show();
                                                     SendUserToMainActivity();
                                                 } else {
-                                                    Toast.makeText(Login.this, "Silahkan verifikasi", Toast.LENGTH_SHORT).show();
+                                                    Toast.makeText(Login.this, "Silahkan cek email anda", Toast.LENGTH_SHORT).show();
                                                 }
                                             }
                                         });
@@ -160,6 +161,7 @@ public class Login extends AppCompatActivity {
                 editor = sharedPreferences.edit();
                 editor.putString("email", Uemail);
                 editor.putString("nama", userID);
+                editor.putString("uid", user);
                 editor.apply();
                 startActivity(mainIntent);
                 finish();
