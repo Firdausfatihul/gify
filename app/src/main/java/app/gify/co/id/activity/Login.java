@@ -43,6 +43,7 @@ public class Login extends AppCompatActivity {
     ProgressDialog progressBar;
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
+    private long bakPressedTime;
     SessionManager sessionManager;
     private FirebaseDatabase database;
     private DatabaseReference userRef;
@@ -170,5 +171,25 @@ public class Login extends AppCompatActivity {
 
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (bakPressedTime + 2000 > System.currentTimeMillis()){
+            tekanLagi();
+            /*super.onBackPressed();*/
+            return;
+        }else {
+            Toast.makeText(getApplicationContext(), "Tekan Sekali Lagi Untuk Keluar",Toast.LENGTH_SHORT).show();
+        }
+
+        bakPressedTime = System.currentTimeMillis();
+    }
+
+    private void tekanLagi(){
+        Intent intent = new Intent(Intent.ACTION_MAIN);
+        intent.addCategory(Intent.CATEGORY_HOME);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
     }
 }

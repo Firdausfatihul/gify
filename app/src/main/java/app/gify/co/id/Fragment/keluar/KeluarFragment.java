@@ -1,4 +1,4 @@
-package app.gify.co.id.publicload.ui.keluar;
+package app.gify.co.id.Fragment.keluar;
 
 import android.content.Context;
 import android.content.Intent;

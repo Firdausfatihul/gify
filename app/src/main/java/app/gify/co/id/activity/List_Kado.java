@@ -55,7 +55,7 @@ public class List_Kado extends AppCompatActivity {
     }
 
     private void getBarang() {
-        JsonObjectRequest objectRequest = new JsonObjectRequest(Request.Method.GET, "http://192.168.7.2/gify/api/barangkado.php", null, new Response.Listener<JSONObject>() {
+        JsonObjectRequest objectRequest = new JsonObjectRequest(Request.Method.GET, "http://192.168.7.6/gify/api/barangkado.php", null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 try {

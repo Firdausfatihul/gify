@@ -7,7 +7,7 @@
     android:background="#fab60b"
     android:orientation="vertical"
     android:gravity="center_horizontal"
-    tools:context=".publicload.ui.home.HomeFragment">
+    tools:context=".Fragment.home.HomeFragment">
 
     <ImageView
         android:src="@drawable/home_ultah"

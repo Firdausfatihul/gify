@@ -1,4 +1,4 @@
-package app.gify.co.id.publicload.ui.pengaturan;
+package app.gify.co.id.Fragment.pengaturan;
 
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -31,10 +31,7 @@ public class PengaturanFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        Intent intent = new Intent(getContext(), Pengaturan.class);
-        startActivity(intent);
-        getActivity().finish();
-
-        return super.onCreateView(inflater, container, savedInstanceState);
+        View view = inflater.inflate(R.layout.fragment_pengaturan, container, false);
+        return view;
     }
 }
