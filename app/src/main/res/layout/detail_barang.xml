@@ -189,6 +189,7 @@
             </androidx.cardview.widget.CardView>
 
             <Button
+                android:id="@+id/belikadodetail"
                 android:text="BELI KADO"
                 android:background="#fd672c"
                 android:textColor="#fff"
