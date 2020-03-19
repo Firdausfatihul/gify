@@ -123,8 +123,7 @@ public class Login extends AppCompatActivity {
                                                 }
                                             }
                                         });
-                                        Toast.makeText(Login.this, "Selamat Datang!", Toast.LENGTH_SHORT).show();
-                                        SendUserToMainActivity();
+                                        Toast.makeText(Login.this, "Selamat Datang!", Toast.LENGTH_SHORT).show();;
                                         Masuk.setVisibility(View.VISIBLE);
                                         progressBar.dismiss();
 
