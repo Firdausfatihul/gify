@@ -6,6 +6,7 @@ import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -21,10 +22,12 @@ import app.gify.co.id.R;
 public class DetailKado extends AppCompatActivity {
 
     CarouselView slide;
-    TextView nama, harga, desc;
+    TextView nama, harga, desc, namapopup, jumlah, hargapopuptop, hargapopupdown;
     Button belikadodetail;
     AlertDialog.Builder builder;
     AlertDialog dialog;
+    Button proses, batal;
+    ImageView tambah, kurang;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -53,8 +56,8 @@ public class DetailKado extends AppCompatActivity {
 
         builder = new AlertDialog.Builder(getApplicationContext());
         View view = LayoutInflater.from(getApplicationContext()).inflate(R.layout.popup_beli_barang, null);
-        personal = view.findViewById(R.id.personal);
-        keluarga = view.findViewById(R.id.keluarga);
+        namapopup = view.findViewById(R.id.personal);
+        jumlah = view.findViewById(R.id.keluarga);
         kelompok = view.findViewById(R.id.kelompok);
         perbedaanPaketBelajar = view.findViewById(R.id.PerbedaanPaketBelajarKu);
 
